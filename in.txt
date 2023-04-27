@@ -1,0 +1,17 @@
+Prog
+{
+    VAR
+    {
+        INTEGER x;
+        STRUCT {
+            FLOAT f1, f2;
+            INTEGER i;
+        }type;
+
+        STRUCT type m;
+    }
+    CODE
+    {   
+        
+    }
+}
