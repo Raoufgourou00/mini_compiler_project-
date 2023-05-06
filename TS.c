@@ -7,6 +7,18 @@
 /* --------------------------------------TABLES DES SYNMBOLE 1: VARIABLES --------------------------------------- */
 Liste_TS1 TS1 = NULL;
 
+char* Allouer_Char(int taille) {
+
+    char* s = (char*) malloc(taille * sizeof(char));
+
+    if(s == NULL)
+    {
+        fprintf(stderr , "Erreur : Allocation problem .\n");
+        exit(EXIT_FAILURE);
+    }
+    return s;
+}
+
 Liste_TS1 Allouer_TS1()
 {
  
@@ -21,7 +33,7 @@ Liste_TS1 Allouer_TS1()
 }
 
 
-bool Idf_Existe_TS1(char nom[])
+bool Idf_Existe_TS1(char* nom)
 {
     Liste_TS1 L = TS1;
     while(L != NULL)
@@ -39,16 +51,20 @@ bool Idf_Existe_TS1(char nom[])
 }
 
 
-void Inserer_Element_TS1(char nom[] , int nature, char type[], char valeur[])
+void Inserer_Element_TS1(char* nom, int nature, char* type, char* valeur)
 {   
-        
     if (TS1 == NULL)
     {
         TS1 = Allouer_TS1();
+        TS1->nom = Allouer_Char(strlen(nom) + 1);
+        TS1->type = Allouer_Char(strlen(type) + 1);
+        TS1->valeur = Allouer_Char(strlen(valeur) + 1);
+        
         strcpy(TS1->nom, nom);
         strcpy(TS1->type, type);
-        TS1->nature = nature;
         strcpy(TS1->valeur, valeur);
+        TS1->nature = nature;
+    
         TS1->suivant = NULL ;
     }
     else
@@ -61,10 +77,16 @@ void Inserer_Element_TS1(char nom[] , int nature, char type[], char valeur[])
 
         p->suivant = Allouer_TS1() ;
         p = p->suivant ;
+
+        p->nom = Allouer_Char(strlen(nom) + 1);
+        p->type = Allouer_Char(strlen(type) + 1);
+        p->valeur = Allouer_Char(strlen(valeur) + 1);
+
         strcpy(p->nom, nom) ;
         strcpy(p->type, type);
-        p->nature = nature;
         strcpy(p->valeur, valeur);
+        p->nature = nature;
+        
         p->suivant = NULL ;
     }
 }
@@ -87,7 +109,7 @@ void Supprimer_TS1(Liste_TS1 L) {
      
 } 
 
-void MAJ_TS1(char type[]) {
+void MAJ_TS1(char* type) {
 
     Liste_TS1 L = TS1;
     
@@ -97,6 +119,7 @@ void MAJ_TS1(char type[]) {
             
             if(strcmp(type, "INTEGER") == 0 || strcmp(type, "FLOAT") == 0) {
 
+                L->type = Allouer_Char(strlen(type) + 1);
                 strcpy(L->type, type);
                 L = L->suivant;
             }
@@ -124,14 +147,14 @@ void MAJ_TS1(char type[]) {
 }
 
 
-char* Get_Idf_Type(char nom[]) {
+char* Get_Idf_Type(char* nom) {
 
     Liste_TS1 l = TS1;
     while (l != NULL)
     {
         if (strcmp(l->nom, nom) == 0)
         {
-            char* s;
+            char* s = Allouer_Char(strlen(l->type) + 1);
             strcpy(s, l->type);
             return s;
         }
@@ -140,6 +163,18 @@ char* Get_Idf_Type(char nom[]) {
     
 }
 
+
+Liste_TS1 Look_Up(char* nom) {
+    
+    Liste_TS1 l = TS1;
+    while (l != NULL)
+    {
+        if(strcmp(l->nom, nom) == 0) {
+            return l;
+        }
+        l = l->suivant;
+    }
+}
 
 void Afficher_TS1()
 {   
@@ -153,20 +188,19 @@ void Afficher_TS1()
     else {
         while(L != NULL)
         {   
-            char type[10];
-            char nature[10];
+            char* nature = Allouer_Char(10);
             if(L->nature == 0)
             {
-                strcpy(nature,"CONSTANTE");
+                strcpy(nature,"CONSTANTE\0");
             }
             else
             {
                 if(L->nature == 1) {
-                    strcpy(nature,"VARIABLE");
+                    strcpy(nature,"VARIABLE\0");
                 }
                 else
                 {
-                    strcpy(nature,"TABLEAU");
+                    strcpy(nature,"TABLEAU\0");
                 }
             }
 
@@ -198,12 +232,12 @@ Liste_TS2 Allouer_TS2()
 
 
 
-bool Idf_Existe_TS2(char nom[])
+bool Idf_Existe_TS2(char* nom)
 {
     Liste_TS2 L = TS2;
     while(L != NULL)
     {
-        if(strcmp(L->nom,nom) == 0)
+        if(strcmp(L->nom, nom) == 0)
         {
             return true ;
         }
@@ -216,12 +250,13 @@ bool Idf_Existe_TS2(char nom[])
 }
 
 
-void Inserer_Element_TS2(char nom[])
+void Inserer_Element_TS2(char* nom)
 {   
    
     if (TS2 == NULL)
     {
         TS2 = Allouer_TS2();
+        TS2->nom = Allouer_Char(strlen(nom) + 1);
         strcpy(TS2->nom, nom) ;
         TS2->suivant = NULL ;
     }
@@ -235,6 +270,7 @@ void Inserer_Element_TS2(char nom[])
 
         p->suivant = Allouer_TS2() ;
         p = p->suivant ;
+        p->nom = Allouer_Char(strlen(nom) + 1);
         strcpy(p->nom, nom) ;
         p->suivant = NULL ;
     }
@@ -247,7 +283,7 @@ void MAJ_TS2(char nom[], Liste_Element_Struct L) {
     Liste_TS2 p = TS2;
     while(p != NULL)
     {
-        if(strcmp(p->nom,nom) == 0)
+        if(strcmp(p->nom, nom) == 0)
         {
             p->Attributs_Struc = L;
             break;
@@ -296,12 +332,12 @@ Liste_Element_Struct Allouer() {
     
 }
 
-bool Idf_Existe(Liste_Element_Struct L, char nom[])
+bool Idf_Existe(Liste_Element_Struct L, char* nom)
 {
 
     while(L != NULL)
     {
-        if(strcmp(L->nom,nom) == 0)
+        if(strcmp(L->nom, nom) == 0)
         {
             return true ;
         }
@@ -314,12 +350,15 @@ bool Idf_Existe(Liste_Element_Struct L, char nom[])
 }
 
 
-void Inserer_Element(Liste_Element_Struct* L, char nom[], char type[])
+void Inserer_Element(Liste_Element_Struct* L, char* nom, char* type)
 {   
 
     if ((*L) == NULL)
     {
         (*L) = Allouer();
+        (*L)->nom = Allouer_Char(strlen(nom) + 1);
+        (*L)->type = Allouer_Char(strlen(type) + 1);
+
         strcpy((*L)->nom, nom) ;
         strcpy((*L)->type, type) ;
         (*L)->suivant = NULL ;
@@ -334,6 +373,8 @@ void Inserer_Element(Liste_Element_Struct* L, char nom[], char type[])
 
         p->suivant = Allouer() ;
         p = p->suivant ;
+        p->nom = Allouer_Char(strlen(nom) + 1);
+        p->type = Allouer_Char(strlen(type) + 1);
         strcpy(p->nom, nom) ;
         strcpy(p->type, type) ;
         p->suivant = NULL ;
@@ -341,11 +382,12 @@ void Inserer_Element(Liste_Element_Struct* L, char nom[], char type[])
 }
 
 
-void MAJ_Liste_Element_Struct(Liste_Element_Struct L, char type[]) 
+void MAJ_Liste_Element_Struct(Liste_Element_Struct L, char* type) 
 {
     while (L != NULL)
     {
         if(strcmp(L->type, "#") == 0) {
+            L->type = Allouer_Char(strlen(type) + 1); 
             strcpy(L->type, type);
         }
         L = L->suivant;
@@ -354,7 +396,7 @@ void MAJ_Liste_Element_Struct(Liste_Element_Struct L, char type[])
 
 
 
-Liste_Element_Struct Get_Table_Attributs_De_Type(char nom[]) {
+Liste_Element_Struct Get_Table_Attributs_De_Type(char* nom) {
 
     Liste_TS2 L = TS2;
     while (L != NULL)
@@ -389,9 +431,9 @@ void Afficher(Liste_Element_Struct L)
 }
 
 
-char* Idf_Point_Idf(char idf1[], char idf2[]) {
+char* Idf_Point_Idf(char* idf1, char* idf2) {
     
-    char* nom = (char*) malloc(sizeof(char) * 20);
+    char* nom = Allouer_Char(strlen(idf1) + strlen(idf2) + 2);
     strcpy(nom, idf1);
     strcat(nom, ".");
     strcat(nom, idf2);

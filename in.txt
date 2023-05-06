@@ -2,16 +2,31 @@ Prog
 {
     VAR
     {
-        INTEGER x;
-        STRUCT {
-            FLOAT f1, f2;
-            INTEGER i;
-        }type;
+        FLOAT x, k[5];
+        INTEGER y, l[6];
 
-        STRUCT type m;
+        STRUCT {
+
+            INTEGER t1;
+            FLOAT t2;
+        } S;
+
+        STRUCT S s1;
+        
     }
     CODE
     {   
-        
+        l[0] = 2 + x[50];
+        k[3] = 2.6;
+        IF(x > 5) {
+
+            IF(x < 8) {
+
+            }
+            ELSE 
+            {
+                y = 5.6;
+            }
+        }
     }
 }
