@@ -5,6 +5,8 @@
 
 int num_temp = 0;
 int num_quad = 0;
+char position[50];
+char I[50];char P[50];
 Liste_QUAD QUAD = NULL;
 Liste_QUAD dernier_quad = NULL;
 PILE_TEMP PILE = NULL;
@@ -216,7 +218,7 @@ void Inf_QUAD() {
     sprintf(p->operande1, "(%d)", dernier_quad->num);
     Empiler(temporaire);
 }
-void Sup_Egal_QUAD(char operande1[], char operande2[]) {
+void Sup_Egal_QUAD() {
 
     char op1[50], op2[50];
     Depiler(op1);
@@ -401,6 +403,43 @@ void Routine_If_Apres_Inst2() {
 
 }
 
+//partie boucles for et while 
+
+void Routine_FOR_Cond(char idf[], char pas[], char val[]){
+    Liste_QUAD p;
+
+    Affectation_QUAD(idf, "");
+    //le BR de for doit pointer içi for_apres
+    Inserer_Element_QUAD("BG", "", idf, val);
+    sprintf(I, "%s", idf);
+    sprintf(P, "%s", pas);
+    Empiler_QUAD(dernier_quad);
+
+}
+void Routine_FOR_Apres(){
+
+    Inserer_Element_QUAD("+", I, P, I);    
+    Liste_QUAD q;
+    Depiler_QUAD(&q);
+    sprintf(position, "(%d)", q->num);
+    Inserer_Element_QUAD("BR", position, "", "");
+    sprintf(q->operande1, "(%d)", num_quad);
+}
+
+void Routine_While_Apres_Cond(){
+        //quadruplets cond
+    char temp[50];
+    Depiler(temp); 
+    Inserer_Element_QUAD("BZ", "", temp, "");
+    Empiler_QUAD(dernier_quad);
+}
+void Routine_While_Apres_Inst(){
+    Liste_QUAD q;
+    Depiler_QUAD(&q);
+    sprintf(position, "(%d)", q->num);
+    Inserer_Element_QUAD("BR", position, "", "");
+    sprintf(q->operande1, "(%d)", num_quad);
+}
 
 
 PILE_TEMP Allouer_Pile() {
