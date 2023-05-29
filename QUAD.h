@@ -45,25 +45,20 @@ void Routine_If_Apres_Cond();
 void Routine_If_Apres_Inst1();
 void Routine_If_Apres_Inst2();
 
-<<<<<<< Updated upstream
-void Routine_FOR_Cond(char idf[], char pas[], char val[]);
-void Routine_FOR_Apres();
-=======
 void Routine_While_Apres_Inst();
 void Routine_While_Apres_Cond();
 void Routine_While_Avant_Cond();
 
 char* Case_Tab(char* entity, char* i);
->>>>>>> Stashed changes
 
-void Routine_While_Apres_Cond();
-void Routine_While_Apres_Inst();
 
 typedef struct Element_Pile_Temp
 {
     char temp[20];
     struct Element_Pile_Temp* suivant;
-} Element_Pile_Temp, *PILE_TEMP;
+    
+}Element_Pile_Temp, *PILE_TEMP;
+
 
 PILE_TEMP Allouer_Pile();
 char* Tete_Pile();

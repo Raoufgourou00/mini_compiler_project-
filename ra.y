@@ -34,7 +34,7 @@
 %start S  
 %%
 
-S: idf acc_ouv mc_var acc_ouv LISTE_DEC acc_fer mc_code acc_ouv LISTE_INST acc_fer acc_fer {Afficher_QUAD();YYACCEPT;}
+S: idf acc_ouv mc_var acc_ouv LISTE_DEC acc_fer mc_code acc_ouv LISTE_INST acc_fer acc_fer {YYACCEPT;}
 ;
 
 LISTE_DEC: LISTE_DEC DEC 
@@ -154,7 +154,6 @@ INST: INST_AFF
     | INST_IF 
     | INST_WHILE
     | INST_FOR
-    | INST_WHILE
 ;
 
 INST_AFF: idf aff EXP pvg
@@ -317,10 +316,6 @@ AVANT_ELSE: AVANT_INST acc_ouv LISTE_INST acc_fer       {Routine_If_Apres_Inst1(
 AVANT_INST: mc_if par_ouv COND par_fer                  {Routine_If_Apres_Cond(); }
 ;
 
-<<<<<<< Updated upstream
-
-INST_FOR: mc_for FOR_INIT acc_ouv LISTE_INST acc_fer {Routine_FOR_Apres();}
-=======
 INST_WHILE: APRES_COND_WHILE acc_ouv LISTE_INST acc_fer {Routine_While_Apres_Inst();}
 ;
 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND par_fer {Routine_While_Apres_Cond();}
@@ -328,21 +323,7 @@ APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND par_fer {Routine_While_Apres_Con
 AVANT_COND_WHILE: mc_while                              {Routine_While_Avant_Cond();}
 ;
 INST_FOR: mc_for par_ouv idf deux_points EXP deux_points entier deux_points entier par_fer acc_ouv LISTE_INST acc_fer
->>>>>>> Stashed changes
 ;
-FOR_INIT:  par_ouv FOR_PAR par_fer
-;
-FOR_PAR: idf deux_points EXP deux_points entier deux_points entier
-{
-    Routine_FOR_Cond($1, $5, $7);
-}
-;
-
-INST_WHILE: WHILE_PAR acc_ouv LISTE_INST acc_fer{Routine_While_Apres_Inst();}
-;
-WHILE_PAR:  mc_while par_ouv COND par_fer {Routine_While_Apres_Cond();}
-;
-
 COND: COND or COND          {Or_QUAD();}
     | COND and COND         {And_QUAD();}
     | not COND              {Not_Quad();}

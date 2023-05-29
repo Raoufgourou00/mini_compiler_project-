@@ -4,7 +4,8 @@
 
 int main() {
 
-    int g[5];
-    g[55] = 5;
+    int* g = malloc(sizeof(int) * 5);
+    float f;
+    printf("%d", g[-9]);
     return 0;
 }
