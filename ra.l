@@ -11,7 +11,7 @@
     char sub_str[] = "\0";
     char *str;
     //yywrap : pour le cas de traitement de plusieurs fichiers en mm temps
-      //   dans notre cas on traitra un seul fichier
+    //   dans notre cas on traitra un seul fichier
 %}
 
 %option noyywrap

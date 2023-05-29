@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "QUAD.h"
+#include "TS.h"
 
 int num_temp = 0;
 int num_quad = 0;
@@ -95,17 +96,17 @@ void Affectation_QUAD(char operande1[], char operande2[]) {
     
     if(strcmp(operande1, "") == 0) {
         char* temporaire = Generer_Temp();
-        Inserer_Element_QUAD("=:", operande2, "", temporaire);
+        Inserer_Element_QUAD(":=", operande2, "", temporaire);
         Empiler(temporaire);
     }
     else {
         if(strcmp(operande2, "") == 0) {
             char op2[50];
             Depiler(op2);
-            Inserer_Element_QUAD("=:", op2, "", operande1);
+            Inserer_Element_QUAD(":=", op2, "", operande1);
         }
         else {
-            Inserer_Element_QUAD("=:", operande2, "", operande1);
+            Inserer_Element_QUAD(":=", operande2, "", operande1);
         }
         
     }
@@ -141,6 +142,33 @@ void Soustraction_QUAD(char operande1[], char operande2[]) {
     Empiler(temporaire);
 }
 
+void Moins_QUAD(char operande[]) {
+    char* temporaire = Generer_Temp();
+    
+    if(strcmp(operande, "") == 0) {
+        char op[50];
+        Depiler(op);
+        Inserer_Element_QUAD("-", "0", op, temporaire);
+    } 
+    else {
+        Inserer_Element_QUAD("-", "0", operande, temporaire);
+    }
+    Empiler(temporaire);
+}
+
+void Plus_QUAD(char operande[]) {
+    char* temporaire = Generer_Temp();
+    
+    if(strcmp(operande, "") == 0) {
+        char op[50];
+        Depiler(op);
+        Inserer_Element_QUAD("+", "0", op, temporaire);
+    } 
+    else {
+        Inserer_Element_QUAD("+", "0", operande, temporaire);
+    }
+    Empiler(temporaire);
+}
 
 void Division_QUAD(char operande1[], char operande2[]) {
     
@@ -178,14 +206,14 @@ void Multiplication_QUAD(char operande1[], char operande2[]) {
 void Sup_QUAD() {
     
     char op1[50], op2[50];
-    Depiler(op1);
     Depiler(op2);
+    Depiler(op1);
 
     Liste_QUAD p;
     char* temporaire = Generer_Temp(); 
     Inserer_Element_QUAD("BLE", "", op1, op2);
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
     Inserer_Element_QUAD(":=", "0", "", temporaire);
@@ -200,15 +228,15 @@ void Sup_QUAD() {
 void Inf_QUAD() {
 
     char op1[50], op2[50];
-    Depiler(op1);
     Depiler(op2);
+    Depiler(op1);
 
 
     Liste_QUAD p;
     char* temporaire = Generer_Temp(); 
     Inserer_Element_QUAD("BGE", "", op1, op2);
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
     Inserer_Element_QUAD(":=", "0", "", temporaire);
@@ -221,14 +249,14 @@ void Inf_QUAD() {
 void Sup_Egal_QUAD() {
 
     char op1[50], op2[50];
-    Depiler(op1);
     Depiler(op2);
+    Depiler(op1);
 
     Liste_QUAD p;
     char* temporaire = Generer_Temp(); 
     Inserer_Element_QUAD("BL", "", op1, op2);
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
     Inserer_Element_QUAD(":=", "0", "", temporaire);
@@ -241,14 +269,14 @@ void Sup_Egal_QUAD() {
 void Inf_Egal_QUAD() {
     
     char op1[50], op2[50];
-    Depiler(op1);
     Depiler(op2);
+    Depiler(op1);
     
     Liste_QUAD p;
     char* temporaire = Generer_Temp(); 
     Inserer_Element_QUAD("BG", "", op1, op2);
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
     Inserer_Element_QUAD(":=", "0", "", temporaire);
@@ -261,14 +289,14 @@ void Inf_Egal_QUAD() {
 void Egal_Egal_QUAD() {
 
     char op1[50], op2[50];
-    Depiler(op1);
     Depiler(op2);
+    Depiler(op1);
     
     Liste_QUAD p;
     char* temporaire = Generer_Temp(); 
     Inserer_Element_QUAD("BNE", "", op1, op2);
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
     Inserer_Element_QUAD(":=", "0", "", temporaire);
@@ -281,14 +309,14 @@ void Egal_Egal_QUAD() {
 void Non_Egal_QUAD() {
 
     char op1[50], op2[50];
-    Depiler(op1);
     Depiler(op2);
+    Depiler(op1);
 
     Liste_QUAD p;
     char* temporaire = Generer_Temp(); 
     Inserer_Element_QUAD("BE", "", op1, op2);
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
     Inserer_Element_QUAD(":=", "0", "", temporaire);
@@ -313,10 +341,10 @@ void And_QUAD() {
     Empiler_QUAD(dernier_quad);
     Inserer_Element_QUAD("BZ", "", temp2, "");
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "0", "", temporaire);
+    Inserer_Element_QUAD(":=", "0", "", temporaire);
     Depiler_QUAD(&q);
     sprintf(q->operande1, "(%d)", num_quad);
     Depiler_QUAD(&q);
@@ -338,10 +366,10 @@ void Or_QUAD() {
     Empiler_QUAD(dernier_quad);
     Inserer_Element_QUAD("BNZ", "", temp2, "");
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "0", "", temporaire);
+    Inserer_Element_QUAD(":=", "0", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Depiler_QUAD(&q);
     sprintf(q->operande1, "(%d)", num_quad);
     Depiler_QUAD(&q);
@@ -361,10 +389,10 @@ void Not_Quad() {
     Depiler(temp);                         
     Inserer_Element_QUAD("BZ", "", temp, "");
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "0", "", temporaire);
+    Inserer_Element_QUAD(":=", "0", "", temporaire);
     Inserer_Element_QUAD("BR", "", "", "");
     Empiler_QUAD(dernier_quad);
-    Inserer_Element_QUAD("=:", "1", "", temporaire);
+    Inserer_Element_QUAD(":=", "1", "", temporaire);
     Depiler_QUAD(&q);
     sprintf(q->operande1, "(%d)", num_quad);
     Depiler_QUAD(&q);
@@ -372,6 +400,8 @@ void Not_Quad() {
     Empiler(temporaire);
     
 }
+
+
 
 
 void Routine_If_Apres_Cond() {
@@ -403,6 +433,7 @@ void Routine_If_Apres_Inst2() {
 
 }
 
+<<<<<<< Updated upstream
 //partie boucles for et while 
 
 void Routine_FOR_Cond(char idf[], char pas[], char val[]){
@@ -428,17 +459,50 @@ void Routine_FOR_Apres(){
 
 void Routine_While_Apres_Cond(){
         //quadruplets cond
+=======
+void Routine_While_Avant_Cond() {
+ 
+    Liste_QUAD q = Allouer_QUAD();
+    q->num = num_quad;
+    Empiler_QUAD(q);
+}
+
+void Routine_While_Apres_Cond() {
+
+>>>>>>> Stashed changes
     char temp[50];
     Depiler(temp); 
     Inserer_Element_QUAD("BZ", "", temp, "");
     Empiler_QUAD(dernier_quad);
 }
+<<<<<<< Updated upstream
 void Routine_While_Apres_Inst(){
     Liste_QUAD q;
     Depiler_QUAD(&q);
     sprintf(position, "(%d)", q->num);
     Inserer_Element_QUAD("BR", position, "", "");
     sprintf(q->operande1, "(%d)", num_quad);
+=======
+
+void Routine_While_Apres_Inst() {
+
+    Liste_QUAD q2, q1;
+    Depiler_QUAD(&q2);
+    Depiler_QUAD(&q1);
+    Inserer_Element_QUAD("BR", "", "", "");
+    sprintf(dernier_quad->operande1, "(%d)", q1->num);
+    sprintf(q2->operande1, "(%d)", num_quad);
+}
+
+char* Case_Tab(char* entity, char* i) {
+
+    char* concat = Allouer_Char(strlen(entity) + strlen(i) + 2);
+    strcpy(concat, entity);
+    strcat(concat, "[");
+    strcat(concat, i);
+    strcat(concat, "]");
+    return concat;
+>>>>>>> Stashed changes
 }
 
 

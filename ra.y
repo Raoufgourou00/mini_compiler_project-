@@ -152,6 +152,7 @@ LISTE_INST: LISTE_INST INST
 
 INST: INST_AFF
     | INST_IF 
+    | INST_WHILE
     | INST_FOR
     | INST_WHILE
 ;
@@ -206,7 +207,7 @@ INST_AFF: idf aff EXP pvg
                 }
             }
             Incompatibilite_Types_Tab($1, $3);
-            Affectation_QUAD($1, ""); //chck this
+            Affectation_QUAD(Case_Tab($1, $3), "");
         }
 ;
 
@@ -226,7 +227,6 @@ EXP:  EXP plus EXP
     {   
         Division_QUAD("", ""); 
         Division_Par_Zero(div_par_zero);
-        //printf("\n");
         Traitement_Types();
         div_par_zero = false;
     }
@@ -237,9 +237,18 @@ EXP:  EXP plus EXP
         div_par_zero = false;
         
     }
+    | moins EXP
+    {
+        Moins_QUAD("");
+        div_par_zero = false;
+    }
+    | plus EXP
+    {
+        Plus_QUAD("");
+        div_par_zero = false;
+    }
 	| idf                   
     {   
-        //printf(" ");
         if(!Entite_Non_Declare($1))
         {    
             if(strcmp(Get_Idf_Type($1), "INTEGER") == 0) {
@@ -253,7 +262,6 @@ EXP:  EXP plus EXP
     }         
     | idf point idf                 
     {   
-        //printf(" ");
         char* idf = Idf_Point_Idf($1, $3);
         if(!Entite_Non_Declare(idf))
         {
@@ -280,7 +288,7 @@ EXP:  EXP plus EXP
                 }
             }
         }
-        Affectation_QUAD("", $1); //check this
+        Affectation_QUAD("", Case_Tab($1,$3));
     }             
     | entier                
     {   
@@ -309,8 +317,18 @@ AVANT_ELSE: AVANT_INST acc_ouv LISTE_INST acc_fer       {Routine_If_Apres_Inst1(
 AVANT_INST: mc_if par_ouv COND par_fer                  {Routine_If_Apres_Cond(); }
 ;
 
+<<<<<<< Updated upstream
 
 INST_FOR: mc_for FOR_INIT acc_ouv LISTE_INST acc_fer {Routine_FOR_Apres();}
+=======
+INST_WHILE: APRES_COND_WHILE acc_ouv LISTE_INST acc_fer {Routine_While_Apres_Inst();}
+;
+APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND par_fer {Routine_While_Apres_Cond();}
+;
+AVANT_COND_WHILE: mc_while                              {Routine_While_Avant_Cond();}
+;
+INST_FOR: mc_for par_ouv idf deux_points EXP deux_points entier deux_points entier par_fer acc_ouv LISTE_INST acc_fer
+>>>>>>> Stashed changes
 ;
 FOR_INIT:  par_ouv FOR_PAR par_fer
 ;

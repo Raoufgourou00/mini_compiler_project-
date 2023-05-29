@@ -28,6 +28,8 @@ void Addition_QUAD(char operande1[], char operande2[]);
 void Soustraction_QUAD(char operande1[], char operande2[]);
 void Division_QUAD(char operande1[], char operande2[]);
 void Multiplication_QUAD(char operande1[], char operande2[]);
+void Moins_QUAD(char operande[]);
+void Plus_QUAD(char operande[]);
 void Sup_QUAD();
 void Inf_QUAD();
 void Sup_Egal_QUAD();
@@ -43,8 +45,16 @@ void Routine_If_Apres_Cond();
 void Routine_If_Apres_Inst1();
 void Routine_If_Apres_Inst2();
 
+<<<<<<< Updated upstream
 void Routine_FOR_Cond(char idf[], char pas[], char val[]);
 void Routine_FOR_Apres();
+=======
+void Routine_While_Apres_Inst();
+void Routine_While_Apres_Cond();
+void Routine_While_Avant_Cond();
+
+char* Case_Tab(char* entity, char* i);
+>>>>>>> Stashed changes
 
 void Routine_While_Apres_Cond();
 void Routine_While_Apres_Inst();
