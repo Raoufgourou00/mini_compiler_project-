@@ -3,6 +3,7 @@
 #include <string.h>
 #include "QUAD.h"
 #include "TS.h"
+#include "RS.h"
 
 int num_temp = 0;
 int num_quad = 0;
@@ -454,6 +455,66 @@ void Routine_While_Apres_Inst() {
     Inserer_Element_QUAD("BR", "", "", "");
     sprintf(dernier_quad->operande1, "(%d)", q1->num);
     sprintf(q2->operande1, "(%d)", num_quad);
+}
+
+void Routine_For_Apres_Init(char* i, char* pas) {
+ 
+    if(!Entite_Non_Declare(i)) {      
+        if(!Est_Une_Constante(i)) {
+            if(Est_Un_Entier(i)) {
+                Empiler_Type(0);  
+            }
+            Traitement_Types();
+        }
+    }
+    Incompatibilite_Types(i);
+    Affectation_QUAD(i, "");
+    Empiler(i);
+
+    char num[50];
+    sprintf(num, "(%d)", num_quad + 2);
+    Inserer_Element_QUAD("BR", num, "", "");
+    Inserer_Element_QUAD("+", i, pas, i);
+    Empiler_QUAD(dernier_quad);
+}
+
+
+void Routine_For_Apres_Cond() {
+
+    
+    char n[50], i[50];
+    Depiler(n);
+    Depiler(i);
+ 
+    Empiler_Type(0);
+    Traitement_Types();
+    Incompatibilite_Types(i);
+    char* temp = Generer_Temp();
+    char num[50];
+    sprintf(num, "(%d)", num_quad + 3);
+    Inserer_Element_QUAD("BGE", num, i, n);
+    Inserer_Element_QUAD(":=", "0", "", temp);
+    sprintf(num, "(%d)", num_quad + 2);
+    Inserer_Element_QUAD("BR", num, "", "");
+    Inserer_Element_QUAD(":=", "1", "", temp);
+    Inserer_Element_QUAD("BZ", "", temp, "");
+    Empiler_QUAD(dernier_quad);
+    
+}
+
+
+void Routine_For_Apres_Inst() {
+
+    Liste_QUAD q1, q2;
+    Depiler_QUAD(&q2);
+    Depiler_QUAD(&q1);
+
+    char num[50];
+    sprintf(num, "(%d)", q1->num);
+    Inserer_Element_QUAD("BR", num, "", "");
+    sprintf(num, "(%d)", num_quad);
+    strcpy(q2->operande1, num);
+    
 }
 
 char* Case_Tab(char* entity, char* i) {

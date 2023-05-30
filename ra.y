@@ -83,7 +83,7 @@ TYPE: TYPE_SIMPLE
     {
         if(!Structure_Non_Declare($2)) { 
             
-            type = Allouer_Char(strlen($2) + 1);
+            type = Allouer_Char(strlen($2));
             strcpy(type, $2);
         }
     }
@@ -322,7 +322,12 @@ APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND par_fer {Routine_While_Apres_Con
 ;
 AVANT_COND_WHILE: mc_while                              {Routine_While_Avant_Cond();}
 ;
-INST_FOR: mc_for par_ouv idf deux_points EXP deux_points entier deux_points entier par_fer acc_ouv LISTE_INST acc_fer
+
+INST_FOR: AVANT_INST_FOR acc_ouv LISTE_INST acc_fer                                {Routine_For_Apres_Inst();}
+;
+AVANT_INST_FOR: AVANT_COND_FOR EXP par_fer                                         {Routine_For_Apres_Cond();}
+;
+AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points entier deux_points  {Routine_For_Apres_Init($3, $7);}
 ;
 COND: COND or COND          {Or_QUAD();}
     | COND and COND         {And_QUAD();}

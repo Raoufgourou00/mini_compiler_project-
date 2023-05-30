@@ -16,6 +16,7 @@ bool Incompatibilite_Types(char* entity);
 bool Incompatibilite_Types_Tab(char* entity, char* i);
 bool Est_Un_Tableau(char* entity);
 bool Out_Of_Bounds(char* entity, int i);
+bool Est_Un_Entier(char* entity);
 
 int Depiler_Type();
 void Empiler_Type(int type);

@@ -117,6 +117,17 @@ bool Out_Of_Bounds(char* entity, int i) {
     return false;
 }
 
+bool Est_Un_Entier(char* entity) {
+    
+    Liste_TS1 l = Look_Up(entity);
+    if(strcmp(l->type, "INTEGER") != 0) {
+        printf("semantic error : line %d, col %d l'entite '%s' n'est pas un entier\n",line, col, entity);
+        nb_erreurs++;
+        return false;
+    }
+    return true;
+}
+
 
 bool compatibility = true;
 int cpt_exp = 0; 

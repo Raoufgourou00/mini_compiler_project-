@@ -49,6 +49,9 @@ void Routine_While_Apres_Inst();
 void Routine_While_Apres_Cond();
 void Routine_While_Avant_Cond();
 
+void Routine_For_Apres_Init(char* i, char* pas);
+void Routine_For_Apres_Cond();
+void Routine_For_Apres_Inst();
 char* Case_Tab(char* entity, char* i);
 
 
