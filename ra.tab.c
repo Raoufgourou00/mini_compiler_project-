@@ -71,6 +71,7 @@
     #include "TS.h"
     #include "QUAD.h"
     #include "RS.h"
+    #include "GEN.h"
 
     int yylex();
     int yyerror(char *);
@@ -85,7 +86,7 @@
 
 
 /* Line 371 of yacc.c  */
-#line 89 "ra.tab.c"
+#line 90 "ra.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -166,13 +167,13 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 21 "ra.y"
+#line 22 "ra.y"
 
                 char* nom;
         
 
 /* Line 387 of yacc.c  */
-#line 176 "ra.tab.c"
+#line 177 "ra.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -200,7 +201,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 204 "ra.tab.c"
+#line 205 "ra.tab.c"
 
 #ifdef short
 # undef short
@@ -520,13 +521,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    37,    37,    40,    41,    44,    48,    54,    65,    72,
-      81,    82,    91,    92,    95,   101,   109,   115,   125,   126,
-     128,   134,   140,   149,   150,   153,   154,   155,   156,   159,
-     175,   191,   213,   219,   225,   232,   239,   244,   249,   262,
-     276,   292,   300,   308,   311,   312,   314,   316,   319,   321,
-     323,   326,   328,   330,   332,   333,   334,   335,   336,   337,
-     338,   339,   340,   341
+       0,    38,    38,    41,    42,    45,    49,    55,    66,    73,
+      82,    83,    92,    93,    96,   102,   110,   116,   126,   127,
+     129,   135,   141,   150,   151,   154,   155,   156,   157,   160,
+     176,   192,   214,   220,   226,   233,   240,   245,   250,   263,
+     277,   293,   301,   309,   312,   313,   315,   317,   320,   322,
+     324,   327,   329,   331,   333,   334,   335,   336,   337,   338,
+     339,   340,   341,   342
 };
 #endif
 
@@ -1526,13 +1527,13 @@ yyreduce:
     {
         case 2:
 /* Line 1792 of yacc.c  */
-#line 37 "ra.y"
-    {YYACCEPT;}
+#line 38 "ra.y"
+    {Inserer_Element_TS1((yyvsp[(1) - (11)].nom), 99, "p", "p"); YYACCEPT;}
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 45 "ra.y"
+#line 46 "ra.y"
     {
         MAJ_TS1(type);
     }
@@ -1540,7 +1541,7 @@ yyreduce:
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 49 "ra.y"
+#line 50 "ra.y"
     {      
         if(!Double_Declaration_Entite((yyvsp[(2) - (5)].nom))) {
             Inserer_Element_TS1((yyvsp[(2) - (5)].nom), 0, type, valeur);
@@ -1550,7 +1551,7 @@ yyreduce:
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 55 "ra.y"
+#line 56 "ra.y"
     {
         if(!Double_Declaration_Structure((yyvsp[(5) - (6)].nom))) {
 
@@ -1564,7 +1565,7 @@ yyreduce:
 
   case 8:
 /* Line 1792 of yacc.c  */
-#line 66 "ra.y"
+#line 67 "ra.y"
     {
             type = Allouer_Char(8);
             valeur = Allouer_Char(strlen((yyvsp[(1) - (1)].nom)) + 1);
@@ -1575,7 +1576,7 @@ yyreduce:
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 73 "ra.y"
+#line 74 "ra.y"
     {   
             type = Allouer_Char(6);
             valeur = Allouer_Char(strlen((yyvsp[(1) - (1)].nom)) + 1);
@@ -1586,7 +1587,7 @@ yyreduce:
 
   case 11:
 /* Line 1792 of yacc.c  */
-#line 83 "ra.y"
+#line 84 "ra.y"
     {
         if(!Structure_Non_Declare((yyvsp[(2) - (2)].nom))) { 
             
@@ -1598,19 +1599,19 @@ yyreduce:
 
   case 12:
 /* Line 1792 of yacc.c  */
-#line 91 "ra.y"
+#line 92 "ra.y"
     {type = Allouer_Char(8); strcpy(type, "INTEGER");}
     break;
 
   case 13:
 /* Line 1792 of yacc.c  */
-#line 92 "ra.y"
+#line 93 "ra.y"
     {type = Allouer_Char(6); strcpy(type, "FLOAT");}
     break;
 
   case 14:
 /* Line 1792 of yacc.c  */
-#line 96 "ra.y"
+#line 97 "ra.y"
     {   
             if(!Double_Declaration_Entite((yyvsp[(3) - (3)].nom))) {          
                 Inserer_Element_TS1((yyvsp[(3) - (3)].nom), 1, "#", "#");
@@ -1620,7 +1621,7 @@ yyreduce:
 
   case 15:
 /* Line 1792 of yacc.c  */
-#line 102 "ra.y"
+#line 103 "ra.y"
     {
            if(!Double_Declaration_Entite((yyvsp[(3) - (6)].nom))) {      
                 if(!Taille_Negative((yyvsp[(3) - (6)].nom), atoi((yyvsp[(5) - (6)].nom)))) {
@@ -1632,7 +1633,7 @@ yyreduce:
 
   case 16:
 /* Line 1792 of yacc.c  */
-#line 110 "ra.y"
+#line 111 "ra.y"
     {
             if(!Double_Declaration_Entite((yyvsp[(1) - (1)].nom))) {      
                 Inserer_Element_TS1((yyvsp[(1) - (1)].nom), 1, "#", "#");
@@ -1642,7 +1643,7 @@ yyreduce:
 
   case 17:
 /* Line 1792 of yacc.c  */
-#line 116 "ra.y"
+#line 117 "ra.y"
     {
             if(!Double_Declaration_Entite((yyvsp[(1) - (4)].nom))) {    
                 if(!Taille_Negative((yyvsp[(1) - (4)].nom), atoi((yyvsp[(3) - (4)].nom)))) {  
@@ -1654,7 +1655,7 @@ yyreduce:
 
   case 20:
 /* Line 1792 of yacc.c  */
-#line 129 "ra.y"
+#line 130 "ra.y"
     {
                 MAJ_Liste_Element_Struct(Liste, type);
             }
@@ -1662,7 +1663,7 @@ yyreduce:
 
   case 21:
 /* Line 1792 of yacc.c  */
-#line 135 "ra.y"
+#line 136 "ra.y"
     {
                     if(!Double_Declaration_Entite_Structure(Liste, (yyvsp[(3) - (3)].nom))) {
                         Inserer_Element(&Liste, (yyvsp[(3) - (3)].nom), "#");
@@ -1672,7 +1673,7 @@ yyreduce:
 
   case 22:
 /* Line 1792 of yacc.c  */
-#line 141 "ra.y"
+#line 142 "ra.y"
     {
                     if(!Double_Declaration_Entite_Structure(Liste, (yyvsp[(1) - (1)].nom))) {
                         Inserer_Element(&Liste, (yyvsp[(1) - (1)].nom), "#");
@@ -1682,7 +1683,7 @@ yyreduce:
 
   case 29:
 /* Line 1792 of yacc.c  */
-#line 160 "ra.y"
+#line 161 "ra.y"
     {
             if(!Entite_Non_Declare((yyvsp[(1) - (4)].nom))) {      
                 if(!Est_Une_Constante((yyvsp[(1) - (4)].nom))) {
@@ -1702,7 +1703,7 @@ yyreduce:
 
   case 30:
 /* Line 1792 of yacc.c  */
-#line 176 "ra.y"
+#line 177 "ra.y"
     {
             char* idf = Idf_Point_Idf((yyvsp[(1) - (6)].nom), (yyvsp[(3) - (6)].nom));
             if(!Entite_Non_Declare(idf)) {
@@ -1721,7 +1722,7 @@ yyreduce:
 
   case 31:
 /* Line 1792 of yacc.c  */
-#line 192 "ra.y"
+#line 193 "ra.y"
     {
             if(!Entite_Non_Declare((yyvsp[(1) - (7)].nom))) {      
                 if(!Est_Une_Constante((yyvsp[(1) - (7)].nom))) {
@@ -1745,7 +1746,7 @@ yyreduce:
 
   case 32:
 /* Line 1792 of yacc.c  */
-#line 214 "ra.y"
+#line 215 "ra.y"
     {   
         Addition_QUAD("", "");     
         Traitement_Types();
@@ -1755,7 +1756,7 @@ yyreduce:
 
   case 33:
 /* Line 1792 of yacc.c  */
-#line 220 "ra.y"
+#line 221 "ra.y"
     {
         Soustraction_QUAD("", ""); 
         Traitement_Types();
@@ -1765,7 +1766,7 @@ yyreduce:
 
   case 34:
 /* Line 1792 of yacc.c  */
-#line 226 "ra.y"
+#line 227 "ra.y"
     {   
         Division_QUAD("", ""); 
         Division_Par_Zero(div_par_zero);
@@ -1776,7 +1777,7 @@ yyreduce:
 
   case 35:
 /* Line 1792 of yacc.c  */
-#line 233 "ra.y"
+#line 234 "ra.y"
     {   
         Multiplication_QUAD("", ""); 
         Traitement_Types();
@@ -1787,7 +1788,7 @@ yyreduce:
 
   case 36:
 /* Line 1792 of yacc.c  */
-#line 240 "ra.y"
+#line 241 "ra.y"
     {
         Moins_QUAD("");
         div_par_zero = false;
@@ -1796,7 +1797,7 @@ yyreduce:
 
   case 37:
 /* Line 1792 of yacc.c  */
-#line 245 "ra.y"
+#line 246 "ra.y"
     {
         Plus_QUAD("");
         div_par_zero = false;
@@ -1805,7 +1806,7 @@ yyreduce:
 
   case 38:
 /* Line 1792 of yacc.c  */
-#line 250 "ra.y"
+#line 251 "ra.y"
     {   
         if(!Entite_Non_Declare((yyvsp[(1) - (1)].nom)))
         {    
@@ -1822,7 +1823,7 @@ yyreduce:
 
   case 39:
 /* Line 1792 of yacc.c  */
-#line 263 "ra.y"
+#line 264 "ra.y"
     {   
         char* idf = Idf_Point_Idf((yyvsp[(1) - (3)].nom), (yyvsp[(3) - (3)].nom));
         if(!Entite_Non_Declare(idf))
@@ -1840,7 +1841,7 @@ yyreduce:
 
   case 40:
 /* Line 1792 of yacc.c  */
-#line 277 "ra.y"
+#line 278 "ra.y"
     {
         if(!Entite_Non_Declare((yyvsp[(1) - (4)].nom))) {
             if(Est_Un_Tableau((yyvsp[(1) - (4)].nom))) {
@@ -1860,7 +1861,7 @@ yyreduce:
 
   case 41:
 /* Line 1792 of yacc.c  */
-#line 293 "ra.y"
+#line 294 "ra.y"
     {   
         Empiler_Type(0);
         Affectation_QUAD("", (yyvsp[(1) - (1)].nom));
@@ -1872,7 +1873,7 @@ yyreduce:
 
   case 42:
 /* Line 1792 of yacc.c  */
-#line 301 "ra.y"
+#line 302 "ra.y"
     {
         Empiler_Type(1);
         Affectation_QUAD("", (yyvsp[(1) - (1)].nom));
@@ -1884,121 +1885,121 @@ yyreduce:
 
   case 44:
 /* Line 1792 of yacc.c  */
-#line 311 "ra.y"
+#line 312 "ra.y"
     {Routine_If_Apres_Inst2();}
     break;
 
   case 45:
 /* Line 1792 of yacc.c  */
-#line 312 "ra.y"
+#line 313 "ra.y"
     {Routine_If_Apres_Inst2();}
     break;
 
   case 46:
 /* Line 1792 of yacc.c  */
-#line 314 "ra.y"
+#line 315 "ra.y"
     {Routine_If_Apres_Inst1();}
     break;
 
   case 47:
 /* Line 1792 of yacc.c  */
-#line 316 "ra.y"
+#line 317 "ra.y"
     {Routine_If_Apres_Cond(); }
     break;
 
   case 48:
 /* Line 1792 of yacc.c  */
-#line 319 "ra.y"
+#line 320 "ra.y"
     {Routine_While_Apres_Inst();}
     break;
 
   case 49:
 /* Line 1792 of yacc.c  */
-#line 321 "ra.y"
+#line 322 "ra.y"
     {Routine_While_Apres_Cond();}
     break;
 
   case 50:
 /* Line 1792 of yacc.c  */
-#line 323 "ra.y"
+#line 324 "ra.y"
     {Routine_While_Avant_Cond();}
     break;
 
   case 51:
 /* Line 1792 of yacc.c  */
-#line 326 "ra.y"
+#line 327 "ra.y"
     {Routine_For_Apres_Inst();}
     break;
 
   case 52:
 /* Line 1792 of yacc.c  */
-#line 328 "ra.y"
+#line 329 "ra.y"
     {Routine_For_Apres_Cond();}
     break;
 
   case 53:
 /* Line 1792 of yacc.c  */
-#line 330 "ra.y"
+#line 331 "ra.y"
     {Routine_For_Apres_Init((yyvsp[(3) - (8)].nom), (yyvsp[(7) - (8)].nom));}
     break;
 
   case 54:
 /* Line 1792 of yacc.c  */
-#line 332 "ra.y"
+#line 333 "ra.y"
     {Or_QUAD();}
     break;
 
   case 55:
 /* Line 1792 of yacc.c  */
-#line 333 "ra.y"
+#line 334 "ra.y"
     {And_QUAD();}
     break;
 
   case 56:
 /* Line 1792 of yacc.c  */
-#line 334 "ra.y"
+#line 335 "ra.y"
     {Not_Quad();}
     break;
 
   case 57:
 /* Line 1792 of yacc.c  */
-#line 335 "ra.y"
+#line 336 "ra.y"
     {Inf_QUAD();}
     break;
 
   case 58:
 /* Line 1792 of yacc.c  */
-#line 336 "ra.y"
+#line 337 "ra.y"
     {Sup_QUAD();}
     break;
 
   case 59:
 /* Line 1792 of yacc.c  */
-#line 337 "ra.y"
+#line 338 "ra.y"
     {Inf_Egal_QUAD();}
     break;
 
   case 60:
 /* Line 1792 of yacc.c  */
-#line 338 "ra.y"
+#line 339 "ra.y"
     {Sup_Egal_QUAD();}
     break;
 
   case 61:
 /* Line 1792 of yacc.c  */
-#line 339 "ra.y"
+#line 340 "ra.y"
     {Egal_Egal_QUAD();}
     break;
 
   case 62:
 /* Line 1792 of yacc.c  */
-#line 340 "ra.y"
+#line 341 "ra.y"
     {Non_Egal_QUAD();}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 2002 "ra.tab.c"
+#line 2003 "ra.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2230,7 +2231,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 345 "ra.y"
+#line 346 "ra.y"
 
 int yyerror(char* msg){
     printf("%s : line %d, col %d \n", msg, line, col);
@@ -2248,6 +2249,7 @@ int main(){
     Afficher_TS1();
     Afficher_TS2();
     Afficher_QUAD();
+    Generer();
     fclose(yyin);
     return 0;
 }

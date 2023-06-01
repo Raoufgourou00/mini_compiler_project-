@@ -2,8 +2,8 @@ Prog
 {
     VAR
     {
-        FLOAT x, k[5], l[6];
-        INTEGER y;
+        FLOAT x;
+        INTEGER y, k[5], l[6];
         INTEGER z;
 
         STRUCT {
@@ -13,14 +13,20 @@ Prog
         } S;
 
         STRUCT S s1;
-        INTEGER i ;
+        INTEGER i;
+        INTEGER j;
+        CONST c = 15;
         
     }
     CODE
     {   
-        FOR(i: 1: 5: 5 + 9 - 8 / 7) {
-            x = x + 8.0;
-            x = 5.6 / 2.4;
+        IF(y + 3 > 8) {
+            x = 3.2;
         }
+        ELSE 
+        {
+            z = 5;
+        }
+
     }
 }

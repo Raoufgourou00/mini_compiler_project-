@@ -5,6 +5,7 @@
     #include "TS.h"
     #include "QUAD.h"
     #include "RS.h"
+    #include "GEN.h"
 
     int yylex();
     int yyerror(char *);
@@ -34,7 +35,7 @@
 %start S  
 %%
 
-S: idf acc_ouv mc_var acc_ouv LISTE_DEC acc_fer mc_code acc_ouv LISTE_INST acc_fer acc_fer {YYACCEPT;}
+S: idf acc_ouv mc_var acc_ouv LISTE_DEC acc_fer mc_code acc_ouv LISTE_INST acc_fer acc_fer {Inserer_Element_TS1($1, 99, "p", "p"); YYACCEPT;}
 ;
 
 LISTE_DEC: LISTE_DEC DEC 
@@ -359,6 +360,7 @@ int main(){
     Afficher_TS1();
     Afficher_TS2();
     Afficher_QUAD();
+    Generer();
     fclose(yyin);
     return 0;
 }

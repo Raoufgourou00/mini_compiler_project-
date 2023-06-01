@@ -200,7 +200,12 @@ void Afficher_TS1()
                 }
                 else
                 {
-                    strcpy(nature,"TABLEAU\0");
+                    if(L->nature == 2) {
+                        strcpy(nature,"TABLEAU\0");
+                    }
+                    else {
+                         strcpy(nature,"PROGRAMME\0");
+                    }
                 }
             }
 
@@ -435,7 +440,7 @@ char* Idf_Point_Idf(char* idf1, char* idf2) {
     
     char* nom = Allouer_Char(strlen(idf1) + strlen(idf2) + 2);
     strcpy(nom, idf1);
-    strcat(nom, ".");
+    strcat(nom, "_");
     strcat(nom, idf2);
     return nom;
 }

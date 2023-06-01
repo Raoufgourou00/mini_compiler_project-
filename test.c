@@ -4,8 +4,13 @@
 
 int main() {
 
-    int* g = malloc(sizeof(int) * 5);
-    float f;
-    printf("%d", g[-9]);
+    int cpt = 0;
+    float d = 128.167;
+    
+    char* h = (char*) malloc(20);
+    sprintf(h, "%xh", *(unsigned int*)&d);
+
+    printf("decimal = %f\n", d);
+    printf("hexa = %s\n", h);
     return 0;
 }
