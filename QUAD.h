@@ -5,10 +5,10 @@
 typedef struct Element_Q
 {   
     int num;
-    char operateur[10];
-    char operande1[20];
-    char operande2[20];    
-    char temporaire[20]; 
+    char* operateur;
+    char* operande1;
+    char* operande2;    
+    char* temporaire; 
     struct Element_Q* suivant;
 
 }Element_Q , *Liste_QUAD;

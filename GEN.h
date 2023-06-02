@@ -10,6 +10,7 @@ void Generer_Stack_Segment();
 
 void Declarer_Variable(Liste_TS1 l);
 
+void Get_In_Acc(char** op1, char** op2);
 void Generer_Affectation(char* op, char* temp);
 void Generer_Addition(char* op1, char* op2, char* temp);
 void Generer_Soustraction(char* op1, char* op2, char* temp);

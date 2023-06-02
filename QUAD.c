@@ -31,6 +31,11 @@ void Inserer_Element_QUAD(char operateur[], char operande1[], char operande2[], 
     if (QUAD == NULL)
     {
         QUAD = Allouer_QUAD();
+        QUAD->operateur = Allouer_Char(strlen(operateur));
+        QUAD->operande1 = Allouer_Char(strlen(operande1));
+        QUAD->operande2 = Allouer_Char(strlen(operande2));
+        QUAD->temporaire = Allouer_Char(strlen(temporaire));
+
         QUAD->num = num_quad;
         strcpy(QUAD->operateur, operateur);
         strcpy(QUAD->operande1, operande1);
@@ -45,6 +50,12 @@ void Inserer_Element_QUAD(char operateur[], char operande1[], char operande2[], 
 
         p->suivant = Allouer_QUAD() ;
         p = p->suivant ;
+
+        p->operateur = Allouer_Char(strlen(operateur));
+        p->operande1 = Allouer_Char(strlen(operande1));
+        p->operande2 = Allouer_Char(strlen(operande2));
+        p->temporaire = Allouer_Char(strlen(temporaire));
+        
         p->num = num_quad;
         strcpy(p->operateur, operateur);
         strcpy(p->operande1, operande1);
