@@ -516,6 +516,7 @@ char *yytext;
     #include <string.h>
     #include <float.h>
     #include "ra.tab.h"
+    #include "RS.h"
 
     extern YYSTYPE yylval;
     int line = 1, col = 1;
@@ -524,8 +525,8 @@ char *yytext;
     char *str;
     //yywrap : pour le cas de traitement de plusieurs fichiers en mm temps
     //   dans notre cas on traitra un seul fichier
-#line 527 "lex.yy.c"
 #line 528 "lex.yy.c"
+#line 529 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -742,9 +743,9 @@ YY_DECL
 		}
 
 	{
-#line 31 "ra.l"
+#line 32 "ra.l"
 
-#line 747 "lex.yy.c"
+#line 748 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -803,73 +804,73 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 32 "ra.l"
+#line 33 "ra.l"
 {col += yyleng; return mc_var;} 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 33 "ra.l"
+#line 34 "ra.l"
 {col += yyleng; return mc_code;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 34 "ra.l"
+#line 35 "ra.l"
 {col += yyleng; return mc_integer;} 
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 35 "ra.l"
+#line 36 "ra.l"
 {col += yyleng; return mc_float;} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 36 "ra.l"
+#line 37 "ra.l"
 {col += yyleng; return mc_const;} 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 37 "ra.l"
+#line 38 "ra.l"
 {col += yyleng; return mc_struct;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 38 "ra.l"
+#line 39 "ra.l"
 {col += yyleng; return mc_if;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 39 "ra.l"
+#line 40 "ra.l"
 {col += yyleng; return mc_else;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 40 "ra.l"
+#line 41 "ra.l"
 {col += yyleng; return mc_for;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 41 "ra.l"
+#line 42 "ra.l"
 {col += yyleng; return mc_while;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 44 "ra.l"
+#line 45 "ra.l"
 {   
                     col += yyleng; 
                     if(atoi(yytext) >= -32768 && atoi(yytext)<= 32767)
                     {
-                        yylval.nom = strdup(yytext);  //check later 
+                        yylval.nom = strdup(yytext); 
                         return entier;
                     }
                     else 
                     {
-                        perror("entier en dehors de l'intervalle"); // check later
+                        Erreur_Lexicale(yytext, "entier non valide: un entier doit etre compris entre -32768 et 32767");
                     }
                 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 57 "ra.l"
+#line 58 "ra.l"
 {
                     col += yyleng; 
                     str = strdup(yytext); 
@@ -883,13 +884,13 @@ YY_RULE_SETUP
                     }
                     else 
                     {
-                        perror("entier en dehors de l'intervalle");
+                        Erreur_Lexicale(yytext, "entier non valide: un entier doit etre compris entre -32768 et 32767");
                     }
                 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 74 "ra.l"
+#line 75 "ra.l"
 {
                     col += yyleng; 
                     if (yyleng <= 8)
@@ -898,13 +899,13 @@ YY_RULE_SETUP
                         return(idf);
                     }
                     else {
-                        perror("idf refuse\n");
+                        Erreur_Lexicale(yytext, "identificateur non valide: un identificateur ne doit pas depasser 8 caracteres");
                     }
                 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 87 "ra.l"
+#line 88 "ra.l"
 {   
                     if(strlen(yytext) <= 9) {
                         col += yyleng; 
@@ -912,14 +913,14 @@ YY_RULE_SETUP
                         return reel;
                     }
                     else {
-                        perror("reel refuse\n");
+                        Erreur_Lexicale(yytext, "reel non valide: un reel ne doit pas avoir plus que 9 chiffres");
                     }
                     
                 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 100 "ra.l"
+#line 101 "ra.l"
 {   
                     col += yyleng; 
                     str = strdup(yytext); 
@@ -932,151 +933,151 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 112 "ra.l"
+#line 113 "ra.l"
 {col += yyleng; return deux_points;}  
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 113 "ra.l"
+#line 114 "ra.l"
 {col += yyleng; return acc_ouv;}    
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 114 "ra.l"
+#line 115 "ra.l"
 {col += yyleng; return acc_fer;}    
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 115 "ra.l"
+#line 116 "ra.l"
 {col += yyleng; return croch_ouv;}  
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 116 "ra.l"
+#line 117 "ra.l"
 {col += yyleng; return croch_fer;}          
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 117 "ra.l"
+#line 118 "ra.l"
 {col += yyleng; return pvg;}        
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 118 "ra.l"
+#line 119 "ra.l"
 {col += yyleng; return vg;}          
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 119 "ra.l"
+#line 120 "ra.l"
 {col += yyleng; return aff;}        
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 120 "ra.l"
+#line 121 "ra.l"
 {col += yyleng; return par_ouv;}    
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 121 "ra.l"
+#line 122 "ra.l"
 {col += yyleng; return par_fer;}    
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 122 "ra.l"
+#line 123 "ra.l"
 {col += yyleng; return point;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 125 "ra.l"
+#line 126 "ra.l"
 {col += yyleng; return plus;} 
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 126 "ra.l"
+#line 127 "ra.l"
 {col += yyleng; return moins;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 127 "ra.l"
+#line 128 "ra.l"
 {col += yyleng; return slash;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 128 "ra.l"
+#line 129 "ra.l"
 {col += yyleng; return etoile;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 131 "ra.l"
+#line 132 "ra.l"
 {col += yyleng; return and;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 132 "ra.l"
+#line 133 "ra.l"
 {col += yyleng; return or;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 133 "ra.l"
+#line 134 "ra.l"
 {col += yyleng;  return not;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 135 "ra.l"
+#line 136 "ra.l"
 {col += yyleng;  return sup;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 136 "ra.l"
+#line 137 "ra.l"
 {col += yyleng;  return inf;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 137 "ra.l"
+#line 138 "ra.l"
 {col += yyleng; return sup_egal;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 138 "ra.l"
+#line 139 "ra.l"
 {col += yyleng; return inf_egal;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 139 "ra.l"
+#line 140 "ra.l"
 {col += yyleng; return egal_egal;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 140 "ra.l"
+#line 141 "ra.l"
 {col += yyleng; return non_egal;} 
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 143 "ra.l"
+#line 144 "ra.l"
 {col += yyleng;} 
 	YY_BREAK
 case 41:
 /* rule 41 can match eol */
 YY_RULE_SETUP
-#line 144 "ra.l"
+#line 145 "ra.l"
 {col = 1; line += yyleng;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 145 "ra.l"
+#line 146 "ra.l"
 
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 147 "ra.l"
-{printf ("erreur lexicale entite %s ligne %d colonne %d \n",yytext,line,col);}
+#line 148 "ra.l"
+{Erreur_Lexicale(yytext, "entite non valide: entite non reconnue");}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 149 "ra.l"
+#line 150 "ra.l"
 ECHO;
 	YY_BREAK
-#line 1079 "lex.yy.c"
+#line 1080 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2081,5 +2082,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 149 "ra.l"
+#line 150 "ra.l"
 

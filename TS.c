@@ -4,8 +4,10 @@
 #include "TS.h"
 
 
-/* --------------------------------------TABLES DES SYNMBOLE 1: VARIABLES --------------------------------------- */
+/* --------------------------------------TABLES DES SYNMBOLE 1--------------------------------------- */
+// ts1
 Liste_TS1 TS1 = NULL;
+
 
 char* Allouer_Char(int taille) {
 
@@ -18,6 +20,7 @@ char* Allouer_Char(int taille) {
     }
     return s;
 }
+
 
 Liste_TS1 Allouer_TS1()
 {
@@ -36,9 +39,13 @@ Liste_TS1 Allouer_TS1()
 bool Idf_Existe_TS1(char* nom)
 {
     Liste_TS1 L = TS1;
+    char* hash_nom = Allouer_Char(strlen(nom) + 1);
+    strcpy(hash_nom, "#");
+    strcat(hash_nom, nom);
+
     while(L != NULL)
     {
-        if(strcmp(L->nom,nom) == 0)
+        if(strcmp(L->nom,hash_nom) == 0)
         {
             return true ;
         }
@@ -57,10 +64,13 @@ void Inserer_Element_TS1(char* nom, int nature, char* type, char* valeur)
     {
         TS1 = Allouer_TS1();
         TS1->nom = Allouer_Char(strlen(nom) + 1);
-        TS1->type = Allouer_Char(strlen(type) + 1);
-        TS1->valeur = Allouer_Char(strlen(valeur) + 1);
+        TS1->type = Allouer_Char(strlen(type));
+        TS1->valeur = Allouer_Char(strlen(valeur));
         
-        strcpy(TS1->nom, nom);
+        // ajouter un # au debut de chaque nom pour eviter d'avoir des nom réservés pour le 8086 comme ax, bx ,cx ....
+        strcpy(TS1->nom, "#");
+        strcat(TS1->nom, nom);
+
         strcpy(TS1->type, type);
         strcpy(TS1->valeur, valeur);
         TS1->nature = nature;
@@ -79,10 +89,13 @@ void Inserer_Element_TS1(char* nom, int nature, char* type, char* valeur)
         p = p->suivant ;
 
         p->nom = Allouer_Char(strlen(nom) + 1);
-        p->type = Allouer_Char(strlen(type) + 1);
-        p->valeur = Allouer_Char(strlen(valeur) + 1);
+        p->type = Allouer_Char(strlen(type));
+        p->valeur = Allouer_Char(strlen(valeur));
 
-        strcpy(p->nom, nom) ;
+        // ajouter un # au debut de chaque nom pour eviter d'avoir des nom réservés pour le 8086 comme ax, bx ,cx ....
+        strcpy(p->nom, "#");
+        strcat(p->nom, nom);
+
         strcpy(p->type, type);
         strcpy(p->valeur, valeur);
         p->nature = nature;
@@ -90,6 +103,7 @@ void Inserer_Element_TS1(char* nom, int nature, char* type, char* valeur)
         p->suivant = NULL ;
     }
 }
+
 
 void Supprimer_TS1(Liste_TS1 L) {
 
@@ -106,74 +120,94 @@ void Supprimer_TS1(Liste_TS1 L) {
         p->suivant = L->suivant;
     }
     free(L);
-     
 } 
+
 
 void MAJ_TS1(char* type) {
 
     Liste_TS1 L = TS1;
-    
     while (L != NULL)
     {
         if(strcmp(L->type, "#") == 0) {
             
-            if(strcmp(type, "INTEGER") == 0 || strcmp(type, "FLOAT") == 0) {
 
-                L->type = Allouer_Char(strlen(type) + 1);
+            if(strcmp(type, "INTEGER") == 0 || strcmp(type, "FLOAT") == 0) {
+                
+                // un type simple: INTEGER  || FLOAT
+                L->type = Allouer_Char(strlen(type));
                 strcpy(L->type, type);
                 L = L->suivant;
             }
             else {
                 
+                // un type structure
                 char* str;
-                Liste_Element_Struct E = Get_Table_Attributs_De_Type(type);
+                Liste_Element_Struct E = Get_Table_Attributs_De_Type(type); 
+                /*
+                    "Liste_Element_Struct E = Get_Table_Attributs_De_Type(type);"
+
+                    cette  instruction vas chercher la ts1 la structure dont le nom == type dans 
+                    et retourner sa table d'attributs
+
+                    ensuite pour chaque attribut on fait une concatenation idf_attribut et inserer le resultat dans ts1
+                */ 
                 while (E != NULL)
                 {   
-                    str = Idf_Point_Idf(L->nom, E->nom);
-                    Inserer_Element_TS1(str, L->nature, E->type, "#");
+         
+                    str = Idf_Point_Idf(L->nom, E->nom);                // concatenation nom_nom pour exprimer nom.nom
+                    Inserer_Element_TS1(str, L->nature, E->type, "#");  // inserer nom_nom dans ts1
                     E = E->suivant;
                 }
                 
                 Liste_TS1 p = L;
                 L = L->suivant;
-                Supprimer_TS1(p);
+                Supprimer_TS1(p);                                       // supprimer l'element dans ts1 qui a une type != INTEGER  || FLOAT
             }        
         }
         else {
             L = L->suivant;
         }
     }
-    
 }
 
 
 char* Get_Idf_Type(char* nom) {
 
     Liste_TS1 l = TS1;
+    
+    char* hash_nom = Allouer_Char(strlen(nom) + 1);
+    strcpy(hash_nom, "#");
+    strcat(hash_nom, nom);
+
     while (l != NULL)
-    {
-        if (strcmp(l->nom, nom) == 0)
+    {   
+        if (strcmp(l->nom, hash_nom) == 0)
         {
-            char* s = Allouer_Char(strlen(l->type) + 1);
+            char* s = Allouer_Char(strlen(l->type));
             strcpy(s, l->type);
             return s;
         }
         l = l->suivant;
     }
-    
 }
 
 
 Liste_TS1 Look_Up(char* nom) {
     
     Liste_TS1 l = TS1;
+    
+    char* hash_nom = Allouer_Char(strlen(nom) + 1);
+    strcpy(hash_nom, "#");
+    strcat(hash_nom, nom);
+
     while (l != NULL)
     {
-        if(strcmp(l->nom, nom) == 0) {
+        if(strcmp(l->nom, hash_nom) == 0) {
             return l;
         }
         l = l->suivant;
     }
+    return NULL;
 }
 
 void Afficher_TS1()
@@ -218,9 +252,25 @@ void Afficher_TS1()
 }
 
 
+char* Idf_Point_Idf(char* idf1, char* idf2) {
+    
+    char* idf1_traite = idf1;
+    if(idf1[0] == '#') {
+
+        idf1_traite = Allouer_Char(strlen(idf1) - 1);
+        strncpy(idf1_traite, idf1 + 1, strlen(idf1) - 1);
+    }
+    
+    char* nom = Allouer_Char(strlen(idf1_traite) + strlen(idf2) + 2);
+    strcpy(nom, idf1_traite);
+    strcat(nom, "_");
+    strcat(nom, idf2);
+    return nom;
+}
 
 
-/* --------------------------------------TABLES DES SYNMBOLES 2: Les Structures --------------------------------------- */
+
+/* --------------------------------------TABLES DES SYNMBOLES 2: les structures --------------------------------------- */
 Liste_TS2 TS2 = NULL;
 
 Liste_TS2 Allouer_TS2()
@@ -436,11 +486,3 @@ void Afficher(Liste_Element_Struct L)
 }
 
 
-char* Idf_Point_Idf(char* idf1, char* idf2) {
-    
-    char* nom = Allouer_Char(strlen(idf1) + strlen(idf2) + 2);
-    strcpy(nom, idf1);
-    strcat(nom, "_");
-    strcat(nom, idf2);
-    return nom;
-}

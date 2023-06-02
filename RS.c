@@ -8,6 +8,12 @@ extern Liste_TS1 TS1;
 extern int nb_erreurs;
 
 
+void Erreur_Lexicale(char* entity ,char* msg) {
+    printf("erreur lexicale (Ln %d, Col %d): '%s' -> %s.\n",line, col, entity, msg);
+    nb_erreurs++;
+}
+
+
 bool Double_Declaration_Entite(char* entity) {
     
     if(Idf_Existe_TS1(entity)) {      

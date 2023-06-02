@@ -30,7 +30,7 @@ void Generer() {
 
     vide = Allouer_Char(0);
     strcpy(vide, "");
-    
+
     char* nom = Nom_Programme();
     char* nom_ext = Allouer_Char(strlen(nom) + 4);
     strcpy(nom_ext, nom);
@@ -48,10 +48,10 @@ void Generer() {
 
 void Generer_Stack_Segment() {
   
-    fprintf(Code, "segment_pile SEGMENT stack\n");
-    fprintf(Code, "DW   500 dup (?)\n");
-    fprintf(Code, "base_pile EQU 500\n");
-    fprintf(Code, "segment_pile ENDS\n\n");
+    fprintf(Code, "PILE SEGMENT STACK\n");
+    fprintf(Code, "DW 1000 dup (?)\n");
+    fprintf(Code, "base_pile dw ?\n");
+    fprintf(Code, "PILE ENDS\n\n");
 }
 
 void Generer_Data_Segment() {
@@ -64,8 +64,7 @@ void Generer_Data_Segment() {
         p = p->suivant;
     }
 
-    //declarer un tableau pour les temporaires
-    fprintf(Code, "temporaires DW 500 DUP (?)\n");
+    
     fprintf(Code, "DATA ends\n\n");
 }
 
@@ -77,9 +76,10 @@ void Generer_Code_Segment() {
 
     fprintf(Code, "MOV AX, DATA\n");
     fprintf(Code, "MOV DS, AX\n");
-    fprintf(Code, "MOV AX, segment_pile\n");
+    fprintf(Code, "MOV AX, PILE\n");
     fprintf(Code, "MOV SS, AX\n");
-    fprintf(Code, "MOV SP, base_pile\n\n");
+    fprintf(Code, "MOV SP, base_pile\n");
+    fprintf(Code, "mov BP, base_pile\n\n");
 
 
     //CODE
@@ -115,9 +115,10 @@ void Generer_Code_Segment() {
             Transformer_Float(q->temporaire);
 
             if(strcmp(q->operande2, "") != 0) {
+                /* 
 
                 if(strchr(q->operande2, '#') != NULL) {
-                    fprintf(Code, "MOV AX, temporaires[%d]\n", atoi(Get_Num_Temp(q->operande2)) * 2);
+                    fprintf(Code, "MOV AX, BP[%d]\n", atoi(Get_Num_Temp(q->operande2)) * 2);
                 }
                 else {
                     if(strchr(q->operande2, '[') != NULL) {
@@ -127,7 +128,9 @@ void Generer_Code_Segment() {
                         fprintf(Code, "MOV AX, %s\n", q->operande2);
                     }
                 }
+                */
 
+                Get_In_Acc(&q->operande2, &vide);
             }
             if(strcmp(q->operateur, "BR") == 0) {
                 fprintf(Code, "JMP %s\n", num_etiq_br);
@@ -149,7 +152,7 @@ void Generer_Code_Segment() {
                     {
 
                         if(strchr(q->temporaire, '#') != NULL) {
-                                fprintf(Code, "CMP AX, temporaires[%d]\n", atoi(Get_Num_Temp(q->temporaire)) * 2);
+                                fprintf(Code, "CMP AX, BP[%d]\n", atoi(Get_Num_Temp(q->temporaire)) * 2);
                         }
                         else {
 
@@ -246,7 +249,7 @@ void Get_In_Acc(char** op1, char** op2) {
     if(strcmp(acc, "") == 0) {
 
         if(strchr(*op1, '#') != NULL) {
-            fprintf(Code, "MOV AX, temporaires[%d]\n", atoi(Get_Num_Temp(*op1)) * 2);
+            fprintf(Code, "MOV AX, BP[%d]\n", atoi(Get_Num_Temp(*op1)) * 2);
         }
         else {
             if(strchr(*op1, '[') != NULL) {
@@ -271,7 +274,7 @@ void Get_In_Acc(char** op1, char** op2) {
         if(strcmp(acc, *op1) != 0) {
 
             if(strchr(*op1, '#') != NULL) {
-                fprintf(Code, "MOV AX, temporaires[%d]\n", atoi(Get_Num_Temp(*op1)) * 2);
+                fprintf(Code, "MOV AX, BP[%d]\n", atoi(Get_Num_Temp(*op1)) * 2);
             }
             else {
                 if(strchr(*op1, '[') != NULL) {
@@ -294,7 +297,7 @@ void Generer_Affectation(char* op, char* temp) {
 
 
     if(strchr(temp, '#') != NULL) {
-        fprintf(Code, "MOV temporaires[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
+        fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
@@ -314,7 +317,7 @@ void Generer_Addition(char* op1, char* op2, char* temp) {
     Get_In_Acc(&op1, &op2);
 
     if(strchr(op2, '#') != NULL) {
-        fprintf(Code, "ADD AX, temporaires[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
+        fprintf(Code, "ADD AX, BP[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
     }
     else {
         if(strchr(op2, '[') != NULL) {
@@ -326,7 +329,7 @@ void Generer_Addition(char* op1, char* op2, char* temp) {
     }
 
     if(strchr(temp, '#') != NULL) {
-        fprintf(Code, "MOV temporaires[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
+        fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
@@ -346,7 +349,7 @@ void Generer_Soustraction(char* op1, char* op2, char* temp) {
     Get_In_Acc(&op1, &vide);
 
     if(strchr(op2, '#') != NULL) {
-        fprintf(Code, "SUB AX, temporaires[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
+        fprintf(Code, "SUB AX, BP[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
     }
     else {
         if(strchr(op2, '[') != NULL) {
@@ -358,7 +361,7 @@ void Generer_Soustraction(char* op1, char* op2, char* temp) {
     }
 
     if(strchr(temp, '#') != NULL) {
-        fprintf(Code, "MOV temporaires[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
+        fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
@@ -378,7 +381,7 @@ void Generer_Multiplication(char* op1, char* op2, char* temp) {
     Get_In_Acc(&op1, &op2);
 
     if(strchr(op2, '#') != NULL) {
-        fprintf(Code, "MUL temporaires[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
+        fprintf(Code, "MUL BP[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
     }
     else {
         if(strchr(op2, '[') != NULL) {
@@ -390,7 +393,7 @@ void Generer_Multiplication(char* op1, char* op2, char* temp) {
     }
 
     if(strchr(temp, '#') != NULL) {
-        fprintf(Code, "MOV temporaires[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
+        fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
@@ -410,7 +413,7 @@ void Generer_Division(char* op1, char* op2, char* temp) {
     Get_In_Acc(&op1, &vide);
 
     if(strchr(op2, '#') != NULL) {
-        fprintf(Code, "DIV temporaires[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
+        fprintf(Code, "DIV BP[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
     }
     else {
         if(strchr(op2, '[') != NULL) {
@@ -422,7 +425,7 @@ void Generer_Division(char* op1, char* op2, char* temp) {
     }
 
     if(strchr(temp, '#') != NULL) {
-        fprintf(Code, "MOV temporaires[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
+        fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {

@@ -6,6 +6,7 @@
     #include "QUAD.h"
     #include "RS.h"
     #include "GEN.h"
+    #include "OPTIM.h"
 
     int yylex();
     int yyerror(char *);
@@ -43,12 +44,15 @@ LISTE_DEC: LISTE_DEC DEC
 ; 
 
 DEC:  TYPE LISTE_VAR pvg  
-    {
+    {   
+        //associer a chaque variable de LISTE_VAR le type 'type'
         MAJ_TS1(type);
     }
     | mc_const idf aff VALEUR pvg
     {      
         if(!Double_Declaration_Entite($2)) {
+            //nature = 0 (const)
+            //inserer le nom de la cst dans la table ts1
             Inserer_Element_TS1($2, 0, type, valeur);
         }
     }
@@ -56,7 +60,9 @@ DEC:  TYPE LISTE_VAR pvg
     {
         if(!Double_Declaration_Structure($5)) {
 
+            //Inserer le nom de la structure dans la table ts 2
             Inserer_Element_TS2($5);
+            
             MAJ_TS2($5, Liste);
         }
 
@@ -359,6 +365,10 @@ int main(){
     }
     Afficher_TS1();
     Afficher_TS2();
+    Afficher_QUAD();
+    Optim();
+    printf("Optimisation...\n");
+    printf("------------------------Apres Optimisation-------------------\n");
     Afficher_QUAD();
     Generer();
     fclose(yyin);

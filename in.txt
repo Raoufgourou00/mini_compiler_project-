@@ -15,12 +15,18 @@ Prog
         STRUCT S s1;
         INTEGER i;
         INTEGER j;
-        CONST c = 15;
+        CONST c = 15.1;
         
     }
     CODE
     {   
-        y = 5 + 9 - 2 + 2 * 7 / 25;
+        IF(5 > 2) {
+            z = 1;
+        }
+        ELSE
+        {
+            z = 2;
+        }
         
 
     }

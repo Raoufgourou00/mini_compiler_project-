@@ -4,6 +4,7 @@
     #include <string.h>
     #include <float.h>
     #include "ra.tab.h"
+    #include "RS.h"
 
     extern YYSTYPE yylval;
     int line = 1, col = 1;
@@ -45,12 +46,12 @@ WHILE   {col += yyleng; return mc_while;}
                     col += yyleng; 
                     if(atoi(yytext) >= -32768 && atoi(yytext)<= 32767)
                     {
-                        yylval.nom = strdup(yytext);  //check later 
+                        yylval.nom = strdup(yytext); 
                         return entier;
                     }
                     else 
                     {
-                        perror("entier en dehors de l'intervalle"); // check later
+                        Erreur_Lexicale(yytext, "entier non valide: un entier doit etre compris entre -32768 et 32767");
                     }
                 }
 
@@ -67,7 +68,7 @@ WHILE   {col += yyleng; return mc_while;}
                     }
                     else 
                     {
-                        perror("entier en dehors de l'intervalle");
+                        Erreur_Lexicale(yytext, "entier non valide: un entier doit etre compris entre -32768 et 32767");
                     }
                 }
 
@@ -79,7 +80,7 @@ WHILE   {col += yyleng; return mc_while;}
                         return(idf);
                     }
                     else {
-                        perror("idf refuse\n");
+                        Erreur_Lexicale(yytext, "identificateur non valide: un identificateur ne doit pas depasser 8 caracteres");
                     }
                 }
 
@@ -91,7 +92,7 @@ WHILE   {col += yyleng; return mc_while;}
                         return reel;
                     }
                     else {
-                        perror("reel refuse\n");
+                        Erreur_Lexicale(yytext, "reel non valide: un reel ne doit pas avoir plus que 9 chiffres");
                     }
                     
                 }
@@ -144,6 +145,6 @@ WHILE   {col += yyleng; return mc_while;}
 {saut} {col = 1; line += yyleng;}
 {commentaire} 
 
-. {printf ("erreur lexicale entite %s ligne %d colonne %d \n",yytext,line,col);}
+. {Erreur_Lexicale(yytext, "entite non valide: entite non reconnue");}
 
 %%

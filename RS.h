@@ -3,6 +3,7 @@
 #include "bool.h"
 #include "TS.h"
 
+void Erreur_Lexicale(char* entity, char* msg);
 
 bool Double_Declaration_Entite(char* entity);
 bool Double_Declaration_Structure(char* entity);
