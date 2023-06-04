@@ -48,7 +48,7 @@ void Afficher_TS1();                            // afficher la ts1
 char* Idf_Point_Idf(char* idf1, char* idf2);    // entrées: idf1, idf2 -> sortie: idf1_idf2 : pour exprimer idf.idf
 
 
-// la table des attributs d'une structure
+// la table des attributs d'une structure: chaque structure a une table d'attributs
 typedef struct Element_Struct
 {
     char* nom;
@@ -59,25 +59,27 @@ typedef struct Element_Struct
 
 Liste_Element_Struct Allouer();                                         // allouer un element attribut
 bool Idf_Existe(Liste_Element_Struct L, char* nom);                     // chercher un attribut par son nom dans une liste d'attributs
-void Inserer_Element(Liste_Element_Struct* L, char* nom, char* type);   // 
-void MAJ_Liste_Element_Struct(Liste_Element_Struct L, char* type);
-void Afficher(Liste_Element_Struct P);
+void Inserer_Element(Liste_Element_Struct* L, char* nom, char* type);   // inserer un attribut dans une liste d'attributs
+void MAJ_Liste_Element_Struct(Liste_Element_Struct L, char* type);      // pour chaque attribut d'une liste d'attributs dont attribut.type == "#" faire attribut.type = type
+void Afficher(Liste_Element_Struct P);                                  // afficher une liste d'attributs
 
 
 
+// table des structures
 typedef struct Structure
 {
-    char* nom;
-    struct Element_Struct* Attributs_Struc; 
+    char* nom;                                    // nom de la structure
+    struct Element_Struct* Attributs_Struc;       // un pointeur vers sa table d'attributs (table imbriquée)
     struct Structure* suivant;
 
 }Structure , *Liste_TS2;
 
-Liste_TS2 Allouer_TS2();
-bool Idf_Existe_TS2(char* nom);
-void Inserer_Element_TS2(char* nom);
-void Afficher_TS2();
-void MAJ_TS2(char* nom, Liste_Element_Struct L);
+Liste_TS2 Allouer_TS2();                           // allouer un element structure 
+bool Idf_Existe_TS2(char* nom);                    // chercher un element par son nom dans la ts2
+void Inserer_Element_TS2(char* nom);               // ajouter un element dans la ts2
+void Afficher_TS2();                               // afficher la ts2
+void MAJ_TS2(char* nom, Liste_Element_Struct L);   // associer a chaque structure dont structure.nom == nom sa table d'attributs
 Liste_Element_Struct Get_Table_Attributs_De_Type(char* nom);
+                                                   // retourner la table des attribut de la structure: structure.nom == nom 
 
 #endif

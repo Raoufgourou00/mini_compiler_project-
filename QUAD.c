@@ -105,6 +105,7 @@ void Afficher_QUAD() {
 
 void Affectation_QUAD(char operande1[], char operande2[]) {
     
+    
     if(strcmp(operande1, "") == 0) {
         char* temporaire = Generer_Temp();
         Inserer_Element_QUAD(":=", operande2, "", temporaire);

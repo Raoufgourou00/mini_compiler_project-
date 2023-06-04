@@ -2,32 +2,11 @@ Prog
 {
     VAR
     {
-        FLOAT x;
-        INTEGER y, k[5], l[6];
-        INTEGER z;
+        INTEGER i, j;
 
-        STRUCT {
-
-            INTEGER t1;
-            FLOAT t2;
-        } S;
-
-        STRUCT S s1;
-        INTEGER i;
-        INTEGER j;
-        CONST c = 15.1;
-        
     }
     CODE
     {   
-        IF(5 > 2) {
-            z = 1;
-        }
-        ELSE
-        {
-            z = 2;
-        }
-        
-
+    
     }
 }

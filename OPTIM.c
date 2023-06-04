@@ -39,14 +39,9 @@ void EliminExpRed(){
     Liste_QUAD c, d;
     p = QUAD;
     while(p != NULL){
-        printf("\n ===========Avant=========== \n");
-        printf("%12d\t%12s\t%12s\t%12s\t%s\n",
-                p->num ,p->operateur, p->operande1, p->operande2, p->temporaire);
         if(!strcmp(p->operateur, ":=")){
             Inserer_Element_TEMP(p->temporaire, p->operande1, p->num, p->operateur);
-            printf("\n%12d\t%12s\t%12s\t%12s\n",l->num, l->temp, l->valeur, l->operateur);
-            t=LT;
-            
+            t=LT;            
             while(t != NULL && (t->num < p->num)){
                 if(!strcmp(t->valeur, p->operande1)){
                 strcpy(p->operande1, t->temp);
@@ -54,9 +49,6 @@ void EliminExpRed(){
                 }
                 t=t->suivant;
             }
-            printf("\n ===========Apres=========== \n");
-            printf("%12d\t%12s\t%12s\t%12s\t%s\n",
-                p->num ,p->operateur, p->operande1, p->operande2, p->temporaire);
         }
         else{
             if(!strcmp(p->operateur, "+") || !strcmp(p->operateur, "-")  

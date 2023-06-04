@@ -894,8 +894,13 @@ YY_RULE_SETUP
 {
                     col += yyleng; 
                     if (yyleng <= 8)
-                    {
-                        yylval.nom = strdup(yytext); 
+                    {   
+                        char s[yyleng];
+                        strcpy(s, "$");
+                        strcat(s, yytext);
+                        //chaque idf vas etre codé en '_idf': pour eviter d'avoir des nom réservés pour le 8086 comme ax, bx ,cx ....
+                        yylval.nom = strdup(s);
+
                         return(idf);
                     }
                     else {
@@ -905,7 +910,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 88 "ra.l"
+#line 93 "ra.l"
 {   
                     if(strlen(yytext) <= 9) {
                         col += yyleng; 
@@ -920,7 +925,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 101 "ra.l"
+#line 106 "ra.l"
 {   
                     col += yyleng; 
                     str = strdup(yytext); 
@@ -933,151 +938,151 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 113 "ra.l"
+#line 118 "ra.l"
 {col += yyleng; return deux_points;}  
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 114 "ra.l"
+#line 119 "ra.l"
 {col += yyleng; return acc_ouv;}    
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 115 "ra.l"
+#line 120 "ra.l"
 {col += yyleng; return acc_fer;}    
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 116 "ra.l"
+#line 121 "ra.l"
 {col += yyleng; return croch_ouv;}  
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 117 "ra.l"
+#line 122 "ra.l"
 {col += yyleng; return croch_fer;}          
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 118 "ra.l"
+#line 123 "ra.l"
 {col += yyleng; return pvg;}        
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 119 "ra.l"
+#line 124 "ra.l"
 {col += yyleng; return vg;}          
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 120 "ra.l"
+#line 125 "ra.l"
 {col += yyleng; return aff;}        
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 121 "ra.l"
+#line 126 "ra.l"
 {col += yyleng; return par_ouv;}    
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 122 "ra.l"
+#line 127 "ra.l"
 {col += yyleng; return par_fer;}    
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 123 "ra.l"
+#line 128 "ra.l"
 {col += yyleng; return point;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 126 "ra.l"
+#line 131 "ra.l"
 {col += yyleng; return plus;} 
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 127 "ra.l"
+#line 132 "ra.l"
 {col += yyleng; return moins;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 128 "ra.l"
+#line 133 "ra.l"
 {col += yyleng; return slash;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 129 "ra.l"
+#line 134 "ra.l"
 {col += yyleng; return etoile;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 132 "ra.l"
+#line 137 "ra.l"
 {col += yyleng; return and;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 133 "ra.l"
+#line 138 "ra.l"
 {col += yyleng; return or;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 134 "ra.l"
+#line 139 "ra.l"
 {col += yyleng;  return not;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 136 "ra.l"
+#line 141 "ra.l"
 {col += yyleng;  return sup;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 137 "ra.l"
+#line 142 "ra.l"
 {col += yyleng;  return inf;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 138 "ra.l"
+#line 143 "ra.l"
 {col += yyleng; return sup_egal;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 139 "ra.l"
+#line 144 "ra.l"
 {col += yyleng; return inf_egal;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 140 "ra.l"
+#line 145 "ra.l"
 {col += yyleng; return egal_egal;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 141 "ra.l"
+#line 146 "ra.l"
 {col += yyleng; return non_egal;} 
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 144 "ra.l"
+#line 149 "ra.l"
 {col += yyleng;} 
 	YY_BREAK
 case 41:
 /* rule 41 can match eol */
 YY_RULE_SETUP
-#line 145 "ra.l"
+#line 150 "ra.l"
 {col = 1; line += yyleng;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 146 "ra.l"
+#line 151 "ra.l"
 
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 148 "ra.l"
+#line 153 "ra.l"
 {Erreur_Lexicale(yytext, "entite non valide: entite non reconnue");}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 150 "ra.l"
+#line 155 "ra.l"
 ECHO;
 	YY_BREAK
-#line 1080 "lex.yy.c"
+#line 1085 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2082,5 +2087,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 150 "ra.l"
+#line 155 "ra.l"
 

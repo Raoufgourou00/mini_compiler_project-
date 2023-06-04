@@ -14,10 +14,13 @@ bool Taille_Negative(char* entity, int taille);
 bool Est_Une_Constante(char* entity);
 bool Division_Par_Zero(bool check);
 bool Incompatibilite_Types(char* entity);
-bool Incompatibilite_Types_Tab(char* entity, char* i);
+bool Incompatibilite_Types_Tab(char* entity);
 bool Est_Un_Tableau(char* entity);
 bool Out_Of_Bounds(char* entity, int i);
 bool Est_Un_Entier(char* entity);
+bool Incompatibilite_Types_Index(char* entity);
+
+char* Traiter_Idf(char* idf);
 
 int Depiler_Type();
 void Empiler_Type(int type);

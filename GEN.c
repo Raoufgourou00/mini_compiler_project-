@@ -10,7 +10,7 @@ extern Liste_TS1 TS1;
 FILE* Code = NULL;
 Liste_Etiq ETIQ = NULL;
 char acc[] = "";
-char* vide;
+
 
 
 char* Nom_Programme() {
@@ -27,9 +27,6 @@ char* Nom_Programme() {
 }
 
 void Generer() {
-
-    vide = Allouer_Char(0);
-    strcpy(vide, "");
 
     char* nom = Nom_Programme();
     char* nom_ext = Allouer_Char(strlen(nom) + 4);
@@ -114,22 +111,11 @@ void Generer_Code_Segment() {
             Transformer_Float(q->operande2);
             Transformer_Float(q->temporaire);
 
+            
             if(strcmp(q->operande2, "") != 0) {
-                /* 
-
-                if(strchr(q->operande2, '#') != NULL) {
-                    fprintf(Code, "MOV AX, BP[%d]\n", atoi(Get_Num_Temp(q->operande2)) * 2);
-                }
-                else {
-                    if(strchr(q->operande2, '[') != NULL) {
-                        fprintf(Code, "MOV AX, %s[%d]\n", Get_Nom_Tableau(q->operande2), atoi(Get_Index_Tableau(q->operande2)) * 2);
-                    }
-                    else {
-                        fprintf(Code, "MOV AX, %s\n", q->operande2);
-                    }
-                }
-                */
-
+                
+                char* vide = Allouer_Char(1);
+                strcpy(vide, "\0");
                 Get_In_Acc(&q->operande2, &vide);
             }
             if(strcmp(q->operateur, "BR") == 0) {
@@ -151,13 +137,15 @@ void Generer_Code_Segment() {
                     else 
                     {
 
-                        if(strchr(q->temporaire, '#') != NULL) {
+                        if(q->temporaire[0] == '#') {
                                 fprintf(Code, "CMP AX, BP[%d]\n", atoi(Get_Num_Temp(q->temporaire)) * 2);
                         }
                         else {
 
                             if(strchr(q->temporaire, '[') != NULL) {
-                                fprintf(Code, "CMP AX, %s[%d]\n", Get_Nom_Tableau(q->temporaire), atoi(Get_Index_Tableau(q->temporaire)) * 2);
+                                fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(q->temporaire))) * 2);
+                                fprintf(Code, "ADD BX, BX\n");
+                                fprintf(Code, "CMP AX, %s[BX]\n", Get_Nom_Tableau(q->temporaire));
                             }
                             else {
                                 fprintf(Code, "CMP AX, %s\n", q->temporaire);
@@ -203,6 +191,7 @@ void Generer_Code_Segment() {
                 }
                 
             }
+            strcpy(acc, "");
             break;
         }
         
@@ -248,12 +237,14 @@ void Get_In_Acc(char** op1, char** op2) {
 
     if(strcmp(acc, "") == 0) {
 
-        if(strchr(*op1, '#') != NULL) {
+        if(*op1[0] == '#') {
             fprintf(Code, "MOV AX, BP[%d]\n", atoi(Get_Num_Temp(*op1)) * 2);
         }
         else {
             if(strchr(*op1, '[') != NULL) {
-                fprintf(Code, "MOV AX, %s[%d]\n", Get_Nom_Tableau(*op1), atoi(Get_Index_Tableau(*op1)) * 2);
+                fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(*op1))) * 2);
+                fprintf(Code, "ADD BX, BX\n");
+                fprintf(Code, "MOV AX, %s[BX]\n", Get_Nom_Tableau(*op1));
             }
             else {
                 fprintf(Code, "MOV AX, %s\n", *op1);
@@ -273,12 +264,14 @@ void Get_In_Acc(char** op1, char** op2) {
     {
         if(strcmp(acc, *op1) != 0) {
 
-            if(strchr(*op1, '#') != NULL) {
+            if(*op1[0] == '#') {
                 fprintf(Code, "MOV AX, BP[%d]\n", atoi(Get_Num_Temp(*op1)) * 2);
             }
             else {
                 if(strchr(*op1, '[') != NULL) {
-                    fprintf(Code, "MOV AX, %s[%d]\n", Get_Nom_Tableau(*op1), atoi(Get_Index_Tableau(*op1)) * 2);
+                    fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(*op1))) * 2);
+                    fprintf(Code, "ADD BX, BX\n");
+                    fprintf(Code, "MOV AX, %s[BX]\n", Get_Nom_Tableau(*op1));
                 }
                 else {
                     fprintf(Code, "MOV AX, %s\n", *op1);
@@ -292,16 +285,17 @@ void Get_In_Acc(char** op1, char** op2) {
 
 void Generer_Affectation(char* op, char* temp) {
 
-
+    char* vide = Allouer_Char(1);
+    strcpy(vide, "\0");
     Get_In_Acc(&op, &vide);
-
-
-    if(strchr(temp, '#') != NULL) {
+    if(temp[0] == '#') {
         fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
-            fprintf(Code, "MOV %s[%d], AX\n", Get_Nom_Tableau(temp), atoi(Get_Index_Tableau(temp)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(temp))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "MOV %s[BX], AX\n", Get_Nom_Tableau(temp));
         }
         else {
             fprintf(Code, "MOV %s, AX\n", temp);
@@ -314,26 +308,32 @@ void Generer_Affectation(char* op, char* temp) {
 
 void Generer_Addition(char* op1, char* op2, char* temp) {
 
+
     Get_In_Acc(&op1, &op2);
 
-    if(strchr(op2, '#') != NULL) {
+ 
+    if(op2[0] == '#') {
         fprintf(Code, "ADD AX, BP[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
     }
     else {
         if(strchr(op2, '[') != NULL) {
-            fprintf(Code, "ADD AX, %s[%d]\n", Get_Nom_Tableau(op2), atoi(Get_Index_Tableau(op2)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(op2))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "ADD AX, %s[BX]\n", Get_Nom_Tableau(op2));
         }
         else {
             fprintf(Code, "ADD AX, %s\n", op2);
         }
     }
 
-    if(strchr(temp, '#') != NULL) {
+    if(temp[0] == '#') {
         fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
-            fprintf(Code, "MOV %s[%d], AX\n", Get_Nom_Tableau(temp), atoi(Get_Index_Tableau(temp)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(temp))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "MOV %s[BX], AX\n", Get_Nom_Tableau(temp));
         }
         else {
             fprintf(Code, "MOV %s, AX\n", temp);
@@ -346,26 +346,32 @@ void Generer_Addition(char* op1, char* op2, char* temp) {
 
 void Generer_Soustraction(char* op1, char* op2, char* temp) {
 
+    char* vide = Allouer_Char(1);
+    strcpy(vide, "\0");
     Get_In_Acc(&op1, &vide);
 
-    if(strchr(op2, '#') != NULL) {
+    if(op2[0] == '#') {
         fprintf(Code, "SUB AX, BP[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
     }
     else {
         if(strchr(op2, '[') != NULL) {
-            fprintf(Code, "SUB AX, %s[%d]\n", Get_Nom_Tableau(op2), atoi(Get_Index_Tableau(op2)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(op2))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "SUB AX, %s[BX]\n", Get_Nom_Tableau(op2));
         }
         else {
             fprintf(Code, "SUB AX, %s\n", op2);
         }
     }
 
-    if(strchr(temp, '#') != NULL) {
+    if(temp[0] == '#') {
         fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
-            fprintf(Code, "MOV %s[%d], AX\n", Get_Nom_Tableau(temp), atoi(Get_Index_Tableau(temp)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(temp))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "MOV %s[BX], AX\n", Get_Nom_Tableau(temp));
         }
         else {
             fprintf(Code, "MOV %s, AX\n", temp);
@@ -380,24 +386,28 @@ void Generer_Multiplication(char* op1, char* op2, char* temp) {
 
     Get_In_Acc(&op1, &op2);
 
-    if(strchr(op2, '#') != NULL) {
+    if(op2[0] == '#') {
         fprintf(Code, "MUL BP[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
     }
     else {
         if(strchr(op2, '[') != NULL) {
-            fprintf(Code, "MUL %s[%d]\n", Get_Nom_Tableau(op2), atoi(Get_Index_Tableau(op2)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(op2))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "MUL %s[BX]\n", Get_Nom_Tableau(op2));
         }
         else {
             fprintf(Code, "MUL %s\n", op2);
         }
     }
 
-    if(strchr(temp, '#') != NULL) {
+    if(temp[0] == '#') {
         fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
-            fprintf(Code, "MOV %s[%d], AX\n", Get_Nom_Tableau(temp), atoi(Get_Index_Tableau(temp)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(temp))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "MOV %s[BX], AX\n", Get_Nom_Tableau(temp));
         }
         else {
             fprintf(Code, "MOV %s, AX\n", temp);
@@ -410,26 +420,32 @@ void Generer_Multiplication(char* op1, char* op2, char* temp) {
 
 void Generer_Division(char* op1, char* op2, char* temp) {
 
+    char* vide = Allouer_Char(1);
+    strcpy(vide, "\0");
     Get_In_Acc(&op1, &vide);
 
-    if(strchr(op2, '#') != NULL) {
+    if(op2[0] == '#') {
         fprintf(Code, "DIV BP[%d]\n", atoi(Get_Num_Temp(op2)) * 2);
     }
     else {
         if(strchr(op2, '[') != NULL) {
-            fprintf(Code, "DIV %s[%d]\n", Get_Nom_Tableau(op2), atoi(Get_Index_Tableau(op2)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(op2))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "DIV %s[BX]\n", Get_Nom_Tableau(op2));
         }
         else {
             fprintf(Code, "DIV %s\n", op2);
         }
     }
 
-    if(strchr(temp, '#') != NULL) {
+    if(temp[0] == '#') {
         fprintf(Code, "MOV BP[%d], AX\n", atoi(Get_Num_Temp(temp)) * 2);
     }
     else {
         if(strchr(temp, '[') != NULL) {
-            fprintf(Code, "MOV %s[%d], AX\n", Get_Nom_Tableau(temp), atoi(Get_Index_Tableau(temp)) * 2);
+            fprintf(Code, "MOV BX, BP[%d]\n", atoi(Get_Num_Temp(Get_Index_Tableau(temp))) * 2);
+            fprintf(Code, "ADD BX, BX\n");
+            fprintf(Code, "MOV %s[BX], AX\n", Get_Nom_Tableau(temp));
         }
         else {
             fprintf(Code, "MOV %s, AX\n", temp);

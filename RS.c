@@ -16,8 +16,9 @@ void Erreur_Lexicale(char* entity ,char* msg) {
 
 bool Double_Declaration_Entite(char* entity) {
     
-    if(Idf_Existe_TS1(entity)) {      
-        printf("semantic error : line %d, col %d  double declaration de l'entite '%s'\n",line, col, entity);
+    if(Idf_Existe_TS1(entity)) {     
+        
+        printf("erreur symantique (Ln %d, Col %d): double declaration de l'entite '%s'\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return true;
     }
@@ -28,7 +29,7 @@ bool Double_Declaration_Structure(char* entity) {
     
     if(Idf_Existe_TS2(entity)) {      
      
-        printf("semantic error : line %d, col %d  double declaration du type structure '%s'\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): double declaration du type structure '%s'\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return true;
     }
@@ -38,7 +39,7 @@ bool Double_Declaration_Structure(char* entity) {
 bool Double_Declaration_Entite_Structure(Liste_Element_Struct L, char* entity) {
     
     if(Idf_Existe(L, entity)) {
-        printf("semantic error : line %d, col %d  double declaration de l'attribut '%s'\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): double declaration de l'attribut '%s'\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return true;
     }
@@ -49,7 +50,7 @@ bool Double_Declaration_Entite_Structure(Liste_Element_Struct L, char* entity) {
 bool Structure_Non_Declare(char* entity) {
     
     if(!Idf_Existe_TS2(entity)) {      
-        printf("semantic error : line %d, col %d le type '%s' n'est pas declare\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): le type '%s' n'est pas declare\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return true;
     }
@@ -60,7 +61,7 @@ bool Structure_Non_Declare(char* entity) {
 bool Entite_Non_Declare(char* entity) {
     
     if(!Idf_Existe_TS1(entity)) {      
-        printf("semantic error : line %d, col %d l'entite '%s' n'est pas declare\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): l'entite '%s' n'est pas declaree\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return true;
     }
@@ -71,7 +72,7 @@ bool Entite_Non_Declare(char* entity) {
 bool Taille_Negative(char* entity, int taille) {
     
     if(taille < 0) {
-        printf("semantic error : line %d, col %d la taille du tableau '%s' est negative\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): la taille du tableau '%s' est negative\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return true;
     }
@@ -83,7 +84,7 @@ bool Est_Une_Constante(char* entity) {
 
     Liste_TS1 l = Look_Up(entity);
     if(l->nature == 0) {
-        printf("semantic error : line %d, col %d l'entite '%s' est une constante\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): l'entite '%s' est une constante\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return true;
     }
@@ -94,40 +95,43 @@ bool Est_Une_Constante(char* entity) {
 bool Division_Par_Zero(bool check) {
 
     if(check) {
-        printf("semantic error : line %d, col %d division par zero\n",line, col);
+        printf("erreur symantique (Ln %d, Col %d): division par zero\n",line, col);
         nb_erreurs++;
         return true;
     }
     return false;
 }
 
+
 bool Est_Un_Tableau(char* entity) {
     Liste_TS1 l = Look_Up(entity);
     if(l->nature != 2) {
-        printf("semantic error : line %d, col %d l'entite '%s' n'est pas un tableau\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): l'entite '%s' n'est pas un tableau\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return false;
     }
     return true;
 }
 
+//check
 bool Out_Of_Bounds(char* entity, int i) {
     
     Liste_TS1 l = Look_Up(entity);
     int taille = atoi(l->valeur);
     if(i < 0 || i >= taille) {
-        printf("semantic error : line %d, col %d '%s[%d]' est hors de l'interval\n",line, col, entity, i);
+        printf("erreur symantique (Ln %d, Col %d): '%s[%d]' est hors de l'interval\n",line, col, Traiter_Idf(entity), i);
         nb_erreurs++;
         return true;
     }
     return false;
 }
 
+
 bool Est_Un_Entier(char* entity) {
     
     Liste_TS1 l = Look_Up(entity);
     if(strcmp(l->type, "INTEGER") != 0) {
-        printf("semantic error : line %d, col %d l'entite '%s' n'est pas un entier\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): l'entite '%s' n'est pas un entier\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         return false;
     }
@@ -168,11 +172,22 @@ void Traitement_Types() {
     }
 }
 
-
+//check 
 bool Incompatibilite_Types(char* entity) {
    
     if(!compatibility) {
-        printf("semantic error : line %d, col %d incompatibilite de type '%s = ........'\n",line, col, entity);
+        printf("erreur symantique (Ln %d, Col %d): incompatibilite de type '%s = ........'\n",line, col, Traiter_Idf(entity));
+        nb_erreurs++;
+        compatibility = true;
+    }
+    Depiler_Type();
+}
+
+//check 
+bool Incompatibilite_Types_Tab(char* entity) {
+   
+    if(!compatibility) {
+        printf("erreur symantique (Ln %d, Col %d): incompatibilite de type '%s[exp] = exp'\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         compatibility = true;
     }
@@ -180,12 +195,21 @@ bool Incompatibilite_Types(char* entity) {
 }
 
 
-bool Incompatibilite_Types_Tab(char* entity, char* i) {
-   
+bool Incompatibilite_Types_Index(char* entity) {
+
     if(!compatibility) {
-        printf("semantic error : line %d, col %d incompatibilite de type '%s[%s] = ........'\n",line, col, entity, i);
+        printf("erreur symantique (Ln %d, Col %d): indice non valide dans '%s[exp] -> indice doit etre de type entier\n",line, col, Traiter_Idf(entity));
         nb_erreurs++;
         compatibility = true;
     }
     Depiler_Type();
+
+}
+
+
+char* Traiter_Idf(char* idf) {
+
+    char* s = Allouer_Char(strlen(idf) - 1);
+    strncpy(s, idf + 1, strlen(idf));
+    return s;
 }

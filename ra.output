@@ -43,50 +43,52 @@ Grammar
 
    28 INST_AFF: idf aff EXP pvg
    29         | idf point idf aff EXP pvg
-   30         | idf croch_ouv entier croch_fer aff EXP pvg
+   30         | A aff EXP pvg
 
-   31 EXP: EXP plus EXP
-   32    | EXP moins EXP
-   33    | EXP slash EXP
-   34    | EXP etoile EXP
-   35    | moins EXP
-   36    | plus EXP
-   37    | idf
-   38    | idf point idf
-   39    | idf croch_ouv entier croch_fer
-   40    | entier
-   41    | reel
-   42    | par_ouv EXP par_fer
+   31 A: idf croch_ouv EXP croch_fer
 
-   43 INST_IF: AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
-   44        | AVANT_INST acc_ouv LISTE_INST acc_fer
+   32 EXP: EXP plus EXP
+   33    | EXP moins EXP
+   34    | EXP slash EXP
+   35    | EXP etoile EXP
+   36    | moins EXP
+   37    | plus EXP
+   38    | idf
+   39    | idf point idf
+   40    | idf croch_ouv EXP croch_fer
+   41    | entier
+   42    | reel
+   43    | par_ouv EXP par_fer
 
-   45 AVANT_ELSE: AVANT_INST acc_ouv LISTE_INST acc_fer
+   44 INST_IF: AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
+   45        | AVANT_INST acc_ouv LISTE_INST acc_fer
 
-   46 AVANT_INST: mc_if par_ouv COND par_fer
+   46 AVANT_ELSE: AVANT_INST acc_ouv LISTE_INST acc_fer
 
-   47 INST_WHILE: APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
+   47 AVANT_INST: mc_if par_ouv COND par_fer
 
-   48 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND par_fer
+   48 INST_WHILE: APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
 
-   49 AVANT_COND_WHILE: mc_while
+   49 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND par_fer
 
-   50 INST_FOR: AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
+   50 AVANT_COND_WHILE: mc_while
 
-   51 AVANT_INST_FOR: AVANT_COND_FOR EXP par_fer
+   51 INST_FOR: AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
 
-   52 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points entier deux_points
+   52 AVANT_INST_FOR: AVANT_COND_FOR EXP par_fer
 
-   53 COND: COND or COND
-   54     | COND and COND
-   55     | not COND
-   56     | EXP inf EXP
-   57     | EXP sup EXP
-   58     | EXP inf_egal EXP
-   59     | EXP sup_egal EXP
-   60     | EXP egal_egal EXP
-   61     | EXP non_egal EXP
-   62     | par_ouv COND par_fer
+   53 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points entier deux_points
+
+   54 COND: COND or COND
+   55     | COND and COND
+   56     | not COND
+   57     | EXP inf EXP
+   58     | EXP sup EXP
+   59     | EXP inf_egal EXP
+   60     | EXP sup_egal EXP
+   61     | EXP egal_egal EXP
+   62     | EXP non_egal EXP
+   63     | par_ouv COND par_fer
 
 
 Terminals, with rules where they appear
@@ -99,37 +101,37 @@ mc_integer (260) 11
 mc_float (261) 12
 mc_const (262) 5
 mc_struct (263) 6 10
-mc_if (264) 46
-mc_else (265) 43
-mc_for (266) 52
-mc_while (267) 49
-deux_points (268) 52
-acc_ouv (269) 1 6 43 44 45 47 50
-acc_fer (270) 1 6 43 44 45 47 50
-croch_ouv (271) 14 16 30 39
-croch_fer (272) 14 16 30 39
+mc_if (264) 47
+mc_else (265) 44
+mc_for (266) 53
+mc_while (267) 50
+deux_points (268) 53
+acc_ouv (269) 1 6 44 45 46 48 51
+acc_fer (270) 1 6 44 45 46 48 51
+croch_ouv (271) 14 16 31 40
+croch_fer (272) 14 16 31 40
 pvg (273) 4 5 6 19 28 29 30
 vg (274) 13 14 20
 aff (275) 5 28 29 30
-par_ouv (276) 42 46 48 52 62
-par_fer (277) 42 46 48 51 62
-point (278) 29 38
-plus (279) 31 36
-moins (280) 32 35
-slash (281) 33
-etoile (282) 34
-and (283) 54
-or (284) 53
-not (285) 55
-sup (286) 57
-inf (287) 56
-sup_egal (288) 59
-inf_egal (289) 58
-egal_egal (290) 60
-non_egal (291) 61
-idf (292) 1 5 6 10 13 14 15 16 20 21 28 29 30 37 38 39 52
-reel (293) 8 41
-entier (294) 7 14 16 30 39 40 52
+par_ouv (276) 43 47 49 53 63
+par_fer (277) 43 47 49 52 63
+point (278) 29 39
+plus (279) 32 37
+moins (280) 33 36
+slash (281) 34
+etoile (282) 35
+and (283) 55
+or (284) 54
+not (285) 56
+sup (286) 58
+inf (287) 57
+sup_egal (288) 60
+inf_egal (289) 59
+egal_egal (290) 61
+non_egal (291) 62
+idf (292) 1 5 6 10 13 14 15 16 20 21 28 29 31 38 39 40 53
+reel (293) 8 42
+entier (294) 7 14 16 41 53
 
 
 Nonterminals, with rules where they appear
@@ -157,35 +159,37 @@ DEC_SIMPLE (49)
 LISTE_VAR_SIMPLE (50)
     on left: 20 21, on right: 19 20
 LISTE_INST (51)
-    on left: 22 23, on right: 1 22 43 44 45 47 50
+    on left: 22 23, on right: 1 22 44 45 46 48 51
 INST (52)
     on left: 24 25 26 27, on right: 22
 INST_AFF (53)
     on left: 28 29 30, on right: 24
-EXP (54)
-    on left: 31 32 33 34 35 36 37 38 39 40 41 42, on right: 28 29 30
-    31 32 33 34 35 36 42 51 52 56 57 58 59 60 61
-INST_IF (55)
-    on left: 43 44, on right: 25
-AVANT_ELSE (56)
-    on left: 45, on right: 43
-AVANT_INST (57)
-    on left: 46, on right: 44 45
-INST_WHILE (58)
-    on left: 47, on right: 26
-APRES_COND_WHILE (59)
-    on left: 48, on right: 47
-AVANT_COND_WHILE (60)
+A (54)
+    on left: 31, on right: 30
+EXP (55)
+    on left: 32 33 34 35 36 37 38 39 40 41 42 43, on right: 28 29 30
+    31 32 33 34 35 36 37 40 43 52 53 57 58 59 60 61 62
+INST_IF (56)
+    on left: 44 45, on right: 25
+AVANT_ELSE (57)
+    on left: 46, on right: 44
+AVANT_INST (58)
+    on left: 47, on right: 45 46
+INST_WHILE (59)
+    on left: 48, on right: 26
+APRES_COND_WHILE (60)
     on left: 49, on right: 48
-INST_FOR (61)
-    on left: 50, on right: 27
-AVANT_INST_FOR (62)
-    on left: 51, on right: 50
-AVANT_COND_FOR (63)
+AVANT_COND_WHILE (61)
+    on left: 50, on right: 49
+INST_FOR (62)
+    on left: 51, on right: 27
+AVANT_INST_FOR (63)
     on left: 52, on right: 51
-COND (64)
-    on left: 53 54 55 56 57 58 59 60 61 62, on right: 46 48 53 54 55
-    62
+AVANT_COND_FOR (64)
+    on left: 53, on right: 52
+COND (65)
+    on left: 54 55 56 57 58 59 60 61 62 63, on right: 47 49 54 55 56
+    63
 
 
 State 0
@@ -500,17 +504,18 @@ State 34
    27     | . INST_FOR
    28 INST_AFF: . idf aff EXP pvg
    29         | . idf point idf aff EXP pvg
-   30         | . idf croch_ouv entier croch_fer aff EXP pvg
-   43 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
-   44        | . AVANT_INST acc_ouv LISTE_INST acc_fer
-   45 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
-   46 AVANT_INST: . mc_if par_ouv COND par_fer
-   47 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
-   48 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
-   49 AVANT_COND_WHILE: . mc_while
-   50 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
-   51 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
-   52 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
+   30         | . A aff EXP pvg
+   31 A: . idf croch_ouv EXP croch_fer
+   44 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
+   45        | . AVANT_INST acc_ouv LISTE_INST acc_fer
+   46 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
+   47 AVANT_INST: . mc_if par_ouv COND par_fer
+   48 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
+   49 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
+   50 AVANT_COND_WHILE: . mc_while
+   51 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
+   52 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
+   53 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
 
     mc_if     shift, and go to state 41
     mc_for    shift, and go to state 42
@@ -520,22 +525,23 @@ State 34
 
     INST              go to state 46
     INST_AFF          go to state 47
-    INST_IF           go to state 48
-    AVANT_ELSE        go to state 49
-    AVANT_INST        go to state 50
-    INST_WHILE        go to state 51
-    APRES_COND_WHILE  go to state 52
-    AVANT_COND_WHILE  go to state 53
-    INST_FOR          go to state 54
-    AVANT_INST_FOR    go to state 55
-    AVANT_COND_FOR    go to state 56
+    A                 go to state 48
+    INST_IF           go to state 49
+    AVANT_ELSE        go to state 50
+    AVANT_INST        go to state 51
+    INST_WHILE        go to state 52
+    APRES_COND_WHILE  go to state 53
+    AVANT_COND_WHILE  go to state 54
+    INST_FOR          go to state 55
+    AVANT_INST_FOR    go to state 56
+    AVANT_COND_FOR    go to state 57
 
 
 State 35
 
    16 LISTE_VAR: idf croch_ouv entier . croch_fer
 
-    croch_fer  shift, and go to state 57
+    croch_fer  shift, and go to state 58
 
 
 State 36
@@ -543,7 +549,7 @@ State 36
    13 LISTE_VAR: LISTE_VAR vg idf .
    14          | LISTE_VAR vg idf . croch_ouv entier croch_fer
 
-    croch_ouv  shift, and go to state 58
+    croch_ouv  shift, and go to state 59
 
     $default  reduce using rule 13 (LISTE_VAR)
 
@@ -559,7 +565,7 @@ State 38
 
     6 DEC: mc_struct acc_ouv LISTE_DEC_SIMPLE acc_fer idf . pvg
 
-    pvg  shift, and go to state 59
+    pvg  shift, and go to state 60
 
 
 State 39
@@ -574,47 +580,47 @@ State 40
    19 DEC_SIMPLE: TYPE_SIMPLE LISTE_VAR_SIMPLE . pvg
    20 LISTE_VAR_SIMPLE: LISTE_VAR_SIMPLE . vg idf
 
-    pvg  shift, and go to state 60
-    vg   shift, and go to state 61
+    pvg  shift, and go to state 61
+    vg   shift, and go to state 62
 
 
 State 41
 
-   46 AVANT_INST: mc_if . par_ouv COND par_fer
-
-    par_ouv  shift, and go to state 62
-
-
-State 42
-
-   52 AVANT_COND_FOR: mc_for . par_ouv idf deux_points EXP deux_points entier deux_points
+   47 AVANT_INST: mc_if . par_ouv COND par_fer
 
     par_ouv  shift, and go to state 63
 
 
+State 42
+
+   53 AVANT_COND_FOR: mc_for . par_ouv idf deux_points EXP deux_points entier deux_points
+
+    par_ouv  shift, and go to state 64
+
+
 State 43
 
-   49 AVANT_COND_WHILE: mc_while .
+   50 AVANT_COND_WHILE: mc_while .
 
-    $default  reduce using rule 49 (AVANT_COND_WHILE)
+    $default  reduce using rule 50 (AVANT_COND_WHILE)
 
 
 State 44
 
     1 S: idf acc_ouv mc_var acc_ouv LISTE_DEC acc_fer mc_code acc_ouv LISTE_INST acc_fer . acc_fer
 
-    acc_fer  shift, and go to state 64
+    acc_fer  shift, and go to state 65
 
 
 State 45
 
    28 INST_AFF: idf . aff EXP pvg
    29         | idf . point idf aff EXP pvg
-   30         | idf . croch_ouv entier croch_fer aff EXP pvg
+   31 A: idf . croch_ouv EXP croch_fer
 
-    croch_ouv  shift, and go to state 65
-    aff        shift, and go to state 66
-    point      shift, and go to state 67
+    croch_ouv  shift, and go to state 66
+    aff        shift, and go to state 67
+    point      shift, and go to state 68
 
 
 State 46
@@ -633,678 +639,659 @@ State 47
 
 State 48
 
+   30 INST_AFF: A . aff EXP pvg
+
+    aff  shift, and go to state 69
+
+
+State 49
+
    25 INST: INST_IF .
 
     $default  reduce using rule 25 (INST)
 
 
-State 49
-
-   43 INST_IF: AVANT_ELSE . mc_else acc_ouv LISTE_INST acc_fer
-
-    mc_else  shift, and go to state 68
-
-
 State 50
 
-   44 INST_IF: AVANT_INST . acc_ouv LISTE_INST acc_fer
-   45 AVANT_ELSE: AVANT_INST . acc_ouv LISTE_INST acc_fer
+   44 INST_IF: AVANT_ELSE . mc_else acc_ouv LISTE_INST acc_fer
 
-    acc_ouv  shift, and go to state 69
+    mc_else  shift, and go to state 70
 
 
 State 51
+
+   45 INST_IF: AVANT_INST . acc_ouv LISTE_INST acc_fer
+   46 AVANT_ELSE: AVANT_INST . acc_ouv LISTE_INST acc_fer
+
+    acc_ouv  shift, and go to state 71
+
+
+State 52
 
    26 INST: INST_WHILE .
 
     $default  reduce using rule 26 (INST)
 
 
-State 52
-
-   47 INST_WHILE: APRES_COND_WHILE . acc_ouv LISTE_INST acc_fer
-
-    acc_ouv  shift, and go to state 70
-
-
 State 53
 
-   48 APRES_COND_WHILE: AVANT_COND_WHILE . par_ouv COND par_fer
+   48 INST_WHILE: APRES_COND_WHILE . acc_ouv LISTE_INST acc_fer
 
-    par_ouv  shift, and go to state 71
+    acc_ouv  shift, and go to state 72
 
 
 State 54
+
+   49 APRES_COND_WHILE: AVANT_COND_WHILE . par_ouv COND par_fer
+
+    par_ouv  shift, and go to state 73
+
+
+State 55
 
    27 INST: INST_FOR .
 
     $default  reduce using rule 27 (INST)
 
 
-State 55
-
-   50 INST_FOR: AVANT_INST_FOR . acc_ouv LISTE_INST acc_fer
-
-    acc_ouv  shift, and go to state 72
-
-
 State 56
 
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   51 AVANT_INST_FOR: AVANT_COND_FOR . EXP par_fer
+   51 INST_FOR: AVANT_INST_FOR . acc_ouv LISTE_INST acc_fer
 
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 79
+    acc_ouv  shift, and go to state 74
 
 
 State 57
+
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   52 AVANT_INST_FOR: AVANT_COND_FOR . EXP par_fer
+
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 81
+
+
+State 58
 
    16 LISTE_VAR: idf croch_ouv entier croch_fer .
 
     $default  reduce using rule 16 (LISTE_VAR)
 
 
-State 58
+State 59
 
    14 LISTE_VAR: LISTE_VAR vg idf croch_ouv . entier croch_fer
 
-    entier  shift, and go to state 80
+    entier  shift, and go to state 82
 
 
-State 59
+State 60
 
     6 DEC: mc_struct acc_ouv LISTE_DEC_SIMPLE acc_fer idf pvg .
 
     $default  reduce using rule 6 (DEC)
 
 
-State 60
+State 61
 
    19 DEC_SIMPLE: TYPE_SIMPLE LISTE_VAR_SIMPLE pvg .
 
     $default  reduce using rule 19 (DEC_SIMPLE)
 
 
-State 61
+State 62
 
    20 LISTE_VAR_SIMPLE: LISTE_VAR_SIMPLE vg . idf
 
-    idf  shift, and go to state 81
-
-
-State 62
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   46 AVANT_INST: mc_if par_ouv . COND par_fer
-   53 COND: . COND or COND
-   54     | . COND and COND
-   55     | . not COND
-   56     | . EXP inf EXP
-   57     | . EXP sup EXP
-   58     | . EXP inf_egal EXP
-   59     | . EXP sup_egal EXP
-   60     | . EXP egal_egal EXP
-   61     | . EXP non_egal EXP
-   62     | . par_ouv COND par_fer
-
-    par_ouv  shift, and go to state 82
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    not      shift, and go to state 83
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP   go to state 84
-    COND  go to state 85
+    idf  shift, and go to state 83
 
 
 State 63
 
-   52 AVANT_COND_FOR: mc_for par_ouv . idf deux_points EXP deux_points entier deux_points
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   47 AVANT_INST: mc_if par_ouv . COND par_fer
+   54 COND: . COND or COND
+   55     | . COND and COND
+   56     | . not COND
+   57     | . EXP inf EXP
+   58     | . EXP sup EXP
+   59     | . EXP inf_egal EXP
+   60     | . EXP sup_egal EXP
+   61     | . EXP egal_egal EXP
+   62     | . EXP non_egal EXP
+   63     | . par_ouv COND par_fer
 
-    idf  shift, and go to state 86
+    par_ouv  shift, and go to state 84
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    not      shift, and go to state 85
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP   go to state 86
+    COND  go to state 87
 
 
 State 64
+
+   53 AVANT_COND_FOR: mc_for par_ouv . idf deux_points EXP deux_points entier deux_points
+
+    idf  shift, and go to state 88
+
+
+State 65
 
     1 S: idf acc_ouv mc_var acc_ouv LISTE_DEC acc_fer mc_code acc_ouv LISTE_INST acc_fer acc_fer .
 
     $default  reduce using rule 1 (S)
 
 
-State 65
-
-   30 INST_AFF: idf croch_ouv . entier croch_fer aff EXP pvg
-
-    entier  shift, and go to state 87
-
-
 State 66
 
-   28 INST_AFF: idf aff . EXP pvg
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
+   31 A: idf croch_ouv . EXP croch_fer
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
 
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-    EXP  go to state 88
+    EXP  go to state 89
 
 
 State 67
 
-   29 INST_AFF: idf point . idf aff EXP pvg
+   28 INST_AFF: idf aff . EXP pvg
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
 
-    idf  shift, and go to state 89
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 90
 
 
 State 68
 
-   43 INST_IF: AVANT_ELSE mc_else . acc_ouv LISTE_INST acc_fer
+   29 INST_AFF: idf point . idf aff EXP pvg
 
-    acc_ouv  shift, and go to state 90
+    idf  shift, and go to state 91
 
 
 State 69
 
-   22 LISTE_INST: . LISTE_INST INST
-   23           | .
-   44 INST_IF: AVANT_INST acc_ouv . LISTE_INST acc_fer
-   45 AVANT_ELSE: AVANT_INST acc_ouv . LISTE_INST acc_fer
+   30 INST_AFF: A aff . EXP pvg
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
 
-    $default  reduce using rule 23 (LISTE_INST)
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-    LISTE_INST  go to state 91
+    EXP  go to state 92
 
 
 State 70
 
-   22 LISTE_INST: . LISTE_INST INST
-   23           | .
-   47 INST_WHILE: APRES_COND_WHILE acc_ouv . LISTE_INST acc_fer
+   44 INST_IF: AVANT_ELSE mc_else . acc_ouv LISTE_INST acc_fer
 
-    $default  reduce using rule 23 (LISTE_INST)
-
-    LISTE_INST  go to state 92
+    acc_ouv  shift, and go to state 93
 
 
 State 71
 
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   48 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv . COND par_fer
-   53 COND: . COND or COND
-   54     | . COND and COND
-   55     | . not COND
-   56     | . EXP inf EXP
-   57     | . EXP sup EXP
-   58     | . EXP inf_egal EXP
-   59     | . EXP sup_egal EXP
-   60     | . EXP egal_egal EXP
-   61     | . EXP non_egal EXP
-   62     | . par_ouv COND par_fer
-
-    par_ouv  shift, and go to state 82
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    not      shift, and go to state 83
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP   go to state 84
-    COND  go to state 93
-
-
-State 72
-
    22 LISTE_INST: . LISTE_INST INST
    23           | .
-   50 INST_FOR: AVANT_INST_FOR acc_ouv . LISTE_INST acc_fer
+   45 INST_IF: AVANT_INST acc_ouv . LISTE_INST acc_fer
+   46 AVANT_ELSE: AVANT_INST acc_ouv . LISTE_INST acc_fer
 
     $default  reduce using rule 23 (LISTE_INST)
 
     LISTE_INST  go to state 94
 
 
+State 72
+
+   22 LISTE_INST: . LISTE_INST INST
+   23           | .
+   48 INST_WHILE: APRES_COND_WHILE acc_ouv . LISTE_INST acc_fer
+
+    $default  reduce using rule 23 (LISTE_INST)
+
+    LISTE_INST  go to state 95
+
+
 State 73
 
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   42    | par_ouv . EXP par_fer
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   49 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv . COND par_fer
+   54 COND: . COND or COND
+   55     | . COND and COND
+   56     | . not COND
+   57     | . EXP inf EXP
+   58     | . EXP sup EXP
+   59     | . EXP inf_egal EXP
+   60     | . EXP sup_egal EXP
+   61     | . EXP egal_egal EXP
+   62     | . EXP non_egal EXP
+   63     | . par_ouv COND par_fer
 
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
+    par_ouv  shift, and go to state 84
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    not      shift, and go to state 85
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-    EXP  go to state 95
+    EXP   go to state 86
+    COND  go to state 96
 
 
 State 74
 
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   36    | plus . EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
+   22 LISTE_INST: . LISTE_INST INST
+   23           | .
+   51 INST_FOR: AVANT_INST_FOR acc_ouv . LISTE_INST acc_fer
 
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
+    $default  reduce using rule 23 (LISTE_INST)
 
-    EXP  go to state 96
+    LISTE_INST  go to state 97
 
 
 State 75
 
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   35    | moins . EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   43    | par_ouv . EXP par_fer
 
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-    EXP  go to state 97
+    EXP  go to state 98
 
 
 State 76
 
-   37 EXP: idf .
-   38    | idf . point idf
-   39    | idf . croch_ouv entier croch_fer
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   37    | plus . EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
 
-    croch_ouv  shift, and go to state 98
-    point      shift, and go to state 99
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-    $default  reduce using rule 37 (EXP)
+    EXP  go to state 99
 
 
 State 77
 
-   41 EXP: reel .
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   36    | moins . EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
 
-    $default  reduce using rule 41 (EXP)
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 100
 
 
 State 78
 
-   40 EXP: entier .
+   38 EXP: idf .
+   39    | idf . point idf
+   40    | idf . croch_ouv EXP croch_fer
 
-    $default  reduce using rule 40 (EXP)
+    croch_ouv  shift, and go to state 101
+    point      shift, and go to state 102
+
+    $default  reduce using rule 38 (EXP)
 
 
 State 79
 
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   51 AVANT_INST_FOR: AVANT_COND_FOR EXP . par_fer
+   42 EXP: reel .
 
-    par_fer  shift, and go to state 100
-    plus     shift, and go to state 101
-    moins    shift, and go to state 102
-    slash    shift, and go to state 103
-    etoile   shift, and go to state 104
+    $default  reduce using rule 42 (EXP)
 
 
 State 80
 
-   14 LISTE_VAR: LISTE_VAR vg idf croch_ouv entier . croch_fer
+   41 EXP: entier .
 
-    croch_fer  shift, and go to state 105
+    $default  reduce using rule 41 (EXP)
 
 
 State 81
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   52 AVANT_INST_FOR: AVANT_COND_FOR EXP . par_fer
+
+    par_fer  shift, and go to state 103
+    plus     shift, and go to state 104
+    moins    shift, and go to state 105
+    slash    shift, and go to state 106
+    etoile   shift, and go to state 107
+
+
+State 82
+
+   14 LISTE_VAR: LISTE_VAR vg idf croch_ouv entier . croch_fer
+
+    croch_fer  shift, and go to state 108
+
+
+State 83
 
    20 LISTE_VAR_SIMPLE: LISTE_VAR_SIMPLE vg idf .
 
     $default  reduce using rule 20 (LISTE_VAR_SIMPLE)
 
 
-State 82
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   42    | par_ouv . EXP par_fer
-   53 COND: . COND or COND
-   54     | . COND and COND
-   55     | . not COND
-   56     | . EXP inf EXP
-   57     | . EXP sup EXP
-   58     | . EXP inf_egal EXP
-   59     | . EXP sup_egal EXP
-   60     | . EXP egal_egal EXP
-   61     | . EXP non_egal EXP
-   62     | . par_ouv COND par_fer
-   62     | par_ouv . COND par_fer
-
-    par_ouv  shift, and go to state 82
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    not      shift, and go to state 83
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP   go to state 106
-    COND  go to state 107
-
-
-State 83
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   53 COND: . COND or COND
-   54     | . COND and COND
-   55     | . not COND
-   55     | not . COND
-   56     | . EXP inf EXP
-   57     | . EXP sup EXP
-   58     | . EXP inf_egal EXP
-   59     | . EXP sup_egal EXP
-   60     | . EXP egal_egal EXP
-   61     | . EXP non_egal EXP
-   62     | . par_ouv COND par_fer
-
-    par_ouv  shift, and go to state 82
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    not      shift, and go to state 83
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP   go to state 84
-    COND  go to state 108
-
-
 State 84
 
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   56 COND: EXP . inf EXP
-   57     | EXP . sup EXP
-   58     | EXP . inf_egal EXP
-   59     | EXP . sup_egal EXP
-   60     | EXP . egal_egal EXP
-   61     | EXP . non_egal EXP
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   43    | par_ouv . EXP par_fer
+   54 COND: . COND or COND
+   55     | . COND and COND
+   56     | . not COND
+   57     | . EXP inf EXP
+   58     | . EXP sup EXP
+   59     | . EXP inf_egal EXP
+   60     | . EXP sup_egal EXP
+   61     | . EXP egal_egal EXP
+   62     | . EXP non_egal EXP
+   63     | . par_ouv COND par_fer
+   63     | par_ouv . COND par_fer
 
-    plus       shift, and go to state 101
-    moins      shift, and go to state 102
-    slash      shift, and go to state 103
-    etoile     shift, and go to state 104
-    sup        shift, and go to state 109
-    inf        shift, and go to state 110
-    sup_egal   shift, and go to state 111
-    inf_egal   shift, and go to state 112
-    egal_egal  shift, and go to state 113
-    non_egal   shift, and go to state 114
+    par_ouv  shift, and go to state 84
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    not      shift, and go to state 85
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP   go to state 109
+    COND  go to state 110
 
 
 State 85
 
-   46 AVANT_INST: mc_if par_ouv COND . par_fer
-   53 COND: COND . or COND
-   54     | COND . and COND
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   54 COND: . COND or COND
+   55     | . COND and COND
+   56     | . not COND
+   56     | not . COND
+   57     | . EXP inf EXP
+   58     | . EXP sup EXP
+   59     | . EXP inf_egal EXP
+   60     | . EXP sup_egal EXP
+   61     | . EXP egal_egal EXP
+   62     | . EXP non_egal EXP
+   63     | . par_ouv COND par_fer
 
-    par_fer  shift, and go to state 115
-    and      shift, and go to state 116
-    or       shift, and go to state 117
+    par_ouv  shift, and go to state 84
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    not      shift, and go to state 85
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP   go to state 86
+    COND  go to state 111
 
 
 State 86
 
-   52 AVANT_COND_FOR: mc_for par_ouv idf . deux_points EXP deux_points entier deux_points
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   57 COND: EXP . inf EXP
+   58     | EXP . sup EXP
+   59     | EXP . inf_egal EXP
+   60     | EXP . sup_egal EXP
+   61     | EXP . egal_egal EXP
+   62     | EXP . non_egal EXP
 
-    deux_points  shift, and go to state 118
+    plus       shift, and go to state 104
+    moins      shift, and go to state 105
+    slash      shift, and go to state 106
+    etoile     shift, and go to state 107
+    sup        shift, and go to state 112
+    inf        shift, and go to state 113
+    sup_egal   shift, and go to state 114
+    inf_egal   shift, and go to state 115
+    egal_egal  shift, and go to state 116
+    non_egal   shift, and go to state 117
 
 
 State 87
 
-   30 INST_AFF: idf croch_ouv entier . croch_fer aff EXP pvg
+   47 AVANT_INST: mc_if par_ouv COND . par_fer
+   54 COND: COND . or COND
+   55     | COND . and COND
 
-    croch_fer  shift, and go to state 119
+    par_fer  shift, and go to state 118
+    and      shift, and go to state 119
+    or       shift, and go to state 120
 
 
 State 88
 
-   28 INST_AFF: idf aff EXP . pvg
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
+   53 AVANT_COND_FOR: mc_for par_ouv idf . deux_points EXP deux_points entier deux_points
 
-    pvg     shift, and go to state 120
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
+    deux_points  shift, and go to state 121
 
 
 State 89
 
-   29 INST_AFF: idf point idf . aff EXP pvg
+   31 A: idf croch_ouv EXP . croch_fer
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
 
-    aff  shift, and go to state 121
+    croch_fer  shift, and go to state 122
+    plus       shift, and go to state 104
+    moins      shift, and go to state 105
+    slash      shift, and go to state 106
+    etoile     shift, and go to state 107
 
 
 State 90
 
-   22 LISTE_INST: . LISTE_INST INST
-   23           | .
-   43 INST_IF: AVANT_ELSE mc_else acc_ouv . LISTE_INST acc_fer
+   28 INST_AFF: idf aff EXP . pvg
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
 
-    $default  reduce using rule 23 (LISTE_INST)
-
-    LISTE_INST  go to state 122
+    pvg     shift, and go to state 123
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
 
 
 State 91
 
-   22 LISTE_INST: LISTE_INST . INST
-   24 INST: . INST_AFF
-   25     | . INST_IF
-   26     | . INST_WHILE
-   27     | . INST_FOR
-   28 INST_AFF: . idf aff EXP pvg
-   29         | . idf point idf aff EXP pvg
-   30         | . idf croch_ouv entier croch_fer aff EXP pvg
-   43 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
-   44        | . AVANT_INST acc_ouv LISTE_INST acc_fer
-   44        | AVANT_INST acc_ouv LISTE_INST . acc_fer
-   45 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
-   45           | AVANT_INST acc_ouv LISTE_INST . acc_fer
-   46 AVANT_INST: . mc_if par_ouv COND par_fer
-   47 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
-   48 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
-   49 AVANT_COND_WHILE: . mc_while
-   50 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
-   51 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
-   52 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
+   29 INST_AFF: idf point idf . aff EXP pvg
 
-    mc_if     shift, and go to state 41
-    mc_for    shift, and go to state 42
-    mc_while  shift, and go to state 43
-    acc_fer   shift, and go to state 123
-    idf       shift, and go to state 45
-
-    INST              go to state 46
-    INST_AFF          go to state 47
-    INST_IF           go to state 48
-    AVANT_ELSE        go to state 49
-    AVANT_INST        go to state 50
-    INST_WHILE        go to state 51
-    APRES_COND_WHILE  go to state 52
-    AVANT_COND_WHILE  go to state 53
-    INST_FOR          go to state 54
-    AVANT_INST_FOR    go to state 55
-    AVANT_COND_FOR    go to state 56
+    aff  shift, and go to state 124
 
 
 State 92
 
-   22 LISTE_INST: LISTE_INST . INST
-   24 INST: . INST_AFF
-   25     | . INST_IF
-   26     | . INST_WHILE
-   27     | . INST_FOR
-   28 INST_AFF: . idf aff EXP pvg
-   29         | . idf point idf aff EXP pvg
-   30         | . idf croch_ouv entier croch_fer aff EXP pvg
-   43 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
-   44        | . AVANT_INST acc_ouv LISTE_INST acc_fer
-   45 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
-   46 AVANT_INST: . mc_if par_ouv COND par_fer
-   47 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
-   47           | APRES_COND_WHILE acc_ouv LISTE_INST . acc_fer
-   48 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
-   49 AVANT_COND_WHILE: . mc_while
-   50 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
-   51 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
-   52 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
+   30 INST_AFF: A aff EXP . pvg
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
 
-    mc_if     shift, and go to state 41
-    mc_for    shift, and go to state 42
-    mc_while  shift, and go to state 43
-    acc_fer   shift, and go to state 124
-    idf       shift, and go to state 45
-
-    INST              go to state 46
-    INST_AFF          go to state 47
-    INST_IF           go to state 48
-    AVANT_ELSE        go to state 49
-    AVANT_INST        go to state 50
-    INST_WHILE        go to state 51
-    APRES_COND_WHILE  go to state 52
-    AVANT_COND_WHILE  go to state 53
-    INST_FOR          go to state 54
-    AVANT_INST_FOR    go to state 55
-    AVANT_COND_FOR    go to state 56
+    pvg     shift, and go to state 125
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
 
 
 State 93
 
-   48 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND . par_fer
-   53 COND: COND . or COND
-   54     | COND . and COND
+   22 LISTE_INST: . LISTE_INST INST
+   23           | .
+   44 INST_IF: AVANT_ELSE mc_else acc_ouv . LISTE_INST acc_fer
 
-    par_fer  shift, and go to state 125
-    and      shift, and go to state 116
-    or       shift, and go to state 117
+    $default  reduce using rule 23 (LISTE_INST)
+
+    LISTE_INST  go to state 126
 
 
 State 94
@@ -1316,566 +1303,42 @@ State 94
    27     | . INST_FOR
    28 INST_AFF: . idf aff EXP pvg
    29         | . idf point idf aff EXP pvg
-   30         | . idf croch_ouv entier croch_fer aff EXP pvg
-   43 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
-   44        | . AVANT_INST acc_ouv LISTE_INST acc_fer
-   45 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
-   46 AVANT_INST: . mc_if par_ouv COND par_fer
-   47 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
-   48 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
-   49 AVANT_COND_WHILE: . mc_while
-   50 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
-   50         | AVANT_INST_FOR acc_ouv LISTE_INST . acc_fer
-   51 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
-   52 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
+   30         | . A aff EXP pvg
+   31 A: . idf croch_ouv EXP croch_fer
+   44 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
+   45        | . AVANT_INST acc_ouv LISTE_INST acc_fer
+   45        | AVANT_INST acc_ouv LISTE_INST . acc_fer
+   46 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
+   46           | AVANT_INST acc_ouv LISTE_INST . acc_fer
+   47 AVANT_INST: . mc_if par_ouv COND par_fer
+   48 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
+   49 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
+   50 AVANT_COND_WHILE: . mc_while
+   51 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
+   52 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
+   53 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
 
     mc_if     shift, and go to state 41
     mc_for    shift, and go to state 42
     mc_while  shift, and go to state 43
-    acc_fer   shift, and go to state 126
+    acc_fer   shift, and go to state 127
     idf       shift, and go to state 45
 
     INST              go to state 46
     INST_AFF          go to state 47
-    INST_IF           go to state 48
-    AVANT_ELSE        go to state 49
-    AVANT_INST        go to state 50
-    INST_WHILE        go to state 51
-    APRES_COND_WHILE  go to state 52
-    AVANT_COND_WHILE  go to state 53
-    INST_FOR          go to state 54
-    AVANT_INST_FOR    go to state 55
-    AVANT_COND_FOR    go to state 56
+    A                 go to state 48
+    INST_IF           go to state 49
+    AVANT_ELSE        go to state 50
+    AVANT_INST        go to state 51
+    INST_WHILE        go to state 52
+    APRES_COND_WHILE  go to state 53
+    AVANT_COND_WHILE  go to state 54
+    INST_FOR          go to state 55
+    AVANT_INST_FOR    go to state 56
+    AVANT_COND_FOR    go to state 57
 
 
 State 95
-
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   42    | par_ouv EXP . par_fer
-
-    par_fer  shift, and go to state 127
-    plus     shift, and go to state 101
-    moins    shift, and go to state 102
-    slash    shift, and go to state 103
-    etoile   shift, and go to state 104
-
-
-State 96
-
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   36    | plus EXP .
-
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
-
-    $default  reduce using rule 36 (EXP)
-
-
-State 97
-
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   35    | moins EXP .
-
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
-
-    $default  reduce using rule 35 (EXP)
-
-
-State 98
-
-   39 EXP: idf croch_ouv . entier croch_fer
-
-    entier  shift, and go to state 128
-
-
-State 99
-
-   38 EXP: idf point . idf
-
-    idf  shift, and go to state 129
-
-
-State 100
-
-   51 AVANT_INST_FOR: AVANT_COND_FOR EXP par_fer .
-
-    $default  reduce using rule 51 (AVANT_INST_FOR)
-
-
-State 101
-
-   31 EXP: . EXP plus EXP
-   31    | EXP plus . EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 130
-
-
-State 102
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   32    | EXP moins . EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 131
-
-
-State 103
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   33    | EXP slash . EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 132
-
-
-State 104
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   34    | EXP etoile . EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 133
-
-
-State 105
-
-   14 LISTE_VAR: LISTE_VAR vg idf croch_ouv entier croch_fer .
-
-    $default  reduce using rule 14 (LISTE_VAR)
-
-
-State 106
-
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   42    | par_ouv EXP . par_fer
-   56 COND: EXP . inf EXP
-   57     | EXP . sup EXP
-   58     | EXP . inf_egal EXP
-   59     | EXP . sup_egal EXP
-   60     | EXP . egal_egal EXP
-   61     | EXP . non_egal EXP
-
-    par_fer    shift, and go to state 127
-    plus       shift, and go to state 101
-    moins      shift, and go to state 102
-    slash      shift, and go to state 103
-    etoile     shift, and go to state 104
-    sup        shift, and go to state 109
-    inf        shift, and go to state 110
-    sup_egal   shift, and go to state 111
-    inf_egal   shift, and go to state 112
-    egal_egal  shift, and go to state 113
-    non_egal   shift, and go to state 114
-
-
-State 107
-
-   53 COND: COND . or COND
-   54     | COND . and COND
-   62     | par_ouv COND . par_fer
-
-    par_fer  shift, and go to state 134
-    and      shift, and go to state 116
-    or       shift, and go to state 117
-
-
-State 108
-
-   53 COND: COND . or COND
-   54     | COND . and COND
-   55     | not COND .
-
-    $default  reduce using rule 55 (COND)
-
-
-State 109
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   57 COND: EXP sup . EXP
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 135
-
-
-State 110
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   56 COND: EXP inf . EXP
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 136
-
-
-State 111
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   59 COND: EXP sup_egal . EXP
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 137
-
-
-State 112
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   58 COND: EXP inf_egal . EXP
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 138
-
-
-State 113
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   60 COND: EXP egal_egal . EXP
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 139
-
-
-State 114
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   61 COND: EXP non_egal . EXP
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 140
-
-
-State 115
-
-   46 AVANT_INST: mc_if par_ouv COND par_fer .
-
-    $default  reduce using rule 46 (AVANT_INST)
-
-
-State 116
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   53 COND: . COND or COND
-   54     | . COND and COND
-   54     | COND and . COND
-   55     | . not COND
-   56     | . EXP inf EXP
-   57     | . EXP sup EXP
-   58     | . EXP inf_egal EXP
-   59     | . EXP sup_egal EXP
-   60     | . EXP egal_egal EXP
-   61     | . EXP non_egal EXP
-   62     | . par_ouv COND par_fer
-
-    par_ouv  shift, and go to state 82
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    not      shift, and go to state 83
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP   go to state 84
-    COND  go to state 141
-
-
-State 117
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   53 COND: . COND or COND
-   53     | COND or . COND
-   54     | . COND and COND
-   55     | . not COND
-   56     | . EXP inf EXP
-   57     | . EXP sup EXP
-   58     | . EXP inf_egal EXP
-   59     | . EXP sup_egal EXP
-   60     | . EXP egal_egal EXP
-   61     | . EXP non_egal EXP
-   62     | . par_ouv COND par_fer
-
-    par_ouv  shift, and go to state 82
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    not      shift, and go to state 83
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP   go to state 84
-    COND  go to state 142
-
-
-State 118
-
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-   52 AVANT_COND_FOR: mc_for par_ouv idf deux_points . EXP deux_points entier deux_points
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 143
-
-
-State 119
-
-   30 INST_AFF: idf croch_ouv entier croch_fer . aff EXP pvg
-
-    aff  shift, and go to state 144
-
-
-State 120
-
-   28 INST_AFF: idf aff EXP pvg .
-
-    $default  reduce using rule 28 (INST_AFF)
-
-
-State 121
-
-   29 INST_AFF: idf point idf aff . EXP pvg
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
-
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
-
-    EXP  go to state 145
-
-
-State 122
 
    22 LISTE_INST: LISTE_INST . INST
    24 INST: . INST_AFF
@@ -1884,377 +1347,989 @@ State 122
    27     | . INST_FOR
    28 INST_AFF: . idf aff EXP pvg
    29         | . idf point idf aff EXP pvg
-   30         | . idf croch_ouv entier croch_fer aff EXP pvg
-   43 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
-   43        | AVANT_ELSE mc_else acc_ouv LISTE_INST . acc_fer
-   44        | . AVANT_INST acc_ouv LISTE_INST acc_fer
-   45 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
-   46 AVANT_INST: . mc_if par_ouv COND par_fer
-   47 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
-   48 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
-   49 AVANT_COND_WHILE: . mc_while
-   50 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
-   51 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
-   52 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
+   30         | . A aff EXP pvg
+   31 A: . idf croch_ouv EXP croch_fer
+   44 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
+   45        | . AVANT_INST acc_ouv LISTE_INST acc_fer
+   46 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
+   47 AVANT_INST: . mc_if par_ouv COND par_fer
+   48 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
+   48           | APRES_COND_WHILE acc_ouv LISTE_INST . acc_fer
+   49 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
+   50 AVANT_COND_WHILE: . mc_while
+   51 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
+   52 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
+   53 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
 
     mc_if     shift, and go to state 41
     mc_for    shift, and go to state 42
     mc_while  shift, and go to state 43
-    acc_fer   shift, and go to state 146
+    acc_fer   shift, and go to state 128
     idf       shift, and go to state 45
 
     INST              go to state 46
     INST_AFF          go to state 47
-    INST_IF           go to state 48
-    AVANT_ELSE        go to state 49
-    AVANT_INST        go to state 50
-    INST_WHILE        go to state 51
-    APRES_COND_WHILE  go to state 52
-    AVANT_COND_WHILE  go to state 53
-    INST_FOR          go to state 54
-    AVANT_INST_FOR    go to state 55
-    AVANT_COND_FOR    go to state 56
+    A                 go to state 48
+    INST_IF           go to state 49
+    AVANT_ELSE        go to state 50
+    AVANT_INST        go to state 51
+    INST_WHILE        go to state 52
+    APRES_COND_WHILE  go to state 53
+    AVANT_COND_WHILE  go to state 54
+    INST_FOR          go to state 55
+    AVANT_INST_FOR    go to state 56
+    AVANT_COND_FOR    go to state 57
 
 
-State 123
+State 96
 
-   44 INST_IF: AVANT_INST acc_ouv LISTE_INST acc_fer .
-   45 AVANT_ELSE: AVANT_INST acc_ouv LISTE_INST acc_fer .
+   49 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND . par_fer
+   54 COND: COND . or COND
+   55     | COND . and COND
 
-    mc_else   reduce using rule 45 (AVANT_ELSE)
-    $default  reduce using rule 44 (INST_IF)
-
-
-State 124
-
-   47 INST_WHILE: APRES_COND_WHILE acc_ouv LISTE_INST acc_fer .
-
-    $default  reduce using rule 47 (INST_WHILE)
+    par_fer  shift, and go to state 129
+    and      shift, and go to state 119
+    or       shift, and go to state 120
 
 
-State 125
+State 97
 
-   48 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND par_fer .
+   22 LISTE_INST: LISTE_INST . INST
+   24 INST: . INST_AFF
+   25     | . INST_IF
+   26     | . INST_WHILE
+   27     | . INST_FOR
+   28 INST_AFF: . idf aff EXP pvg
+   29         | . idf point idf aff EXP pvg
+   30         | . A aff EXP pvg
+   31 A: . idf croch_ouv EXP croch_fer
+   44 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
+   45        | . AVANT_INST acc_ouv LISTE_INST acc_fer
+   46 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
+   47 AVANT_INST: . mc_if par_ouv COND par_fer
+   48 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
+   49 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
+   50 AVANT_COND_WHILE: . mc_while
+   51 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
+   51         | AVANT_INST_FOR acc_ouv LISTE_INST . acc_fer
+   52 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
+   53 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
 
-    $default  reduce using rule 48 (APRES_COND_WHILE)
+    mc_if     shift, and go to state 41
+    mc_for    shift, and go to state 42
+    mc_while  shift, and go to state 43
+    acc_fer   shift, and go to state 130
+    idf       shift, and go to state 45
 
-
-State 126
-
-   50 INST_FOR: AVANT_INST_FOR acc_ouv LISTE_INST acc_fer .
-
-    $default  reduce using rule 50 (INST_FOR)
-
-
-State 127
-
-   42 EXP: par_ouv EXP par_fer .
-
-    $default  reduce using rule 42 (EXP)
-
-
-State 128
-
-   39 EXP: idf croch_ouv entier . croch_fer
-
-    croch_fer  shift, and go to state 147
-
-
-State 129
-
-   38 EXP: idf point idf .
-
-    $default  reduce using rule 38 (EXP)
-
-
-State 130
-
-   31 EXP: EXP . plus EXP
-   31    | EXP plus EXP .
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
-
-    $default  reduce using rule 31 (EXP)
+    INST              go to state 46
+    INST_AFF          go to state 47
+    A                 go to state 48
+    INST_IF           go to state 49
+    AVANT_ELSE        go to state 50
+    AVANT_INST        go to state 51
+    INST_WHILE        go to state 52
+    APRES_COND_WHILE  go to state 53
+    AVANT_COND_WHILE  go to state 54
+    INST_FOR          go to state 55
+    AVANT_INST_FOR    go to state 56
+    AVANT_COND_FOR    go to state 57
 
 
-State 131
+State 98
 
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   32    | EXP moins EXP .
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   43    | par_ouv EXP . par_fer
 
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
-
-    $default  reduce using rule 32 (EXP)
-
-
-State 132
-
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   33    | EXP slash EXP .
-   34    | EXP . etoile EXP
-
-    $default  reduce using rule 33 (EXP)
+    par_fer  shift, and go to state 131
+    plus     shift, and go to state 104
+    moins    shift, and go to state 105
+    slash    shift, and go to state 106
+    etoile   shift, and go to state 107
 
 
-State 133
+State 99
 
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   34    | EXP etoile EXP .
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   37    | plus EXP .
 
-    $default  reduce using rule 34 (EXP)
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
 
-
-State 134
-
-   62 COND: par_ouv COND par_fer .
-
-    $default  reduce using rule 62 (COND)
+    $default  reduce using rule 37 (EXP)
 
 
-State 135
+State 100
 
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   57 COND: EXP sup EXP .
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   36    | moins EXP .
 
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
 
-    $default  reduce using rule 57 (COND)
+    $default  reduce using rule 36 (EXP)
 
 
-State 136
+State 101
 
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   56 COND: EXP inf EXP .
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   40    | idf croch_ouv . EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
 
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 132
+
+
+State 102
+
+   39 EXP: idf point . idf
+
+    idf  shift, and go to state 133
+
+
+State 103
+
+   52 AVANT_INST_FOR: AVANT_COND_FOR EXP par_fer .
+
+    $default  reduce using rule 52 (AVANT_INST_FOR)
+
+
+State 104
+
+   32 EXP: . EXP plus EXP
+   32    | EXP plus . EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 134
+
+
+State 105
+
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   33    | EXP moins . EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 135
+
+
+State 106
+
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   34    | EXP slash . EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 136
+
+
+State 107
+
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   35    | EXP etoile . EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 137
+
+
+State 108
+
+   14 LISTE_VAR: LISTE_VAR vg idf croch_ouv entier croch_fer .
+
+    $default  reduce using rule 14 (LISTE_VAR)
+
+
+State 109
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   43    | par_ouv EXP . par_fer
+   57 COND: EXP . inf EXP
+   58     | EXP . sup EXP
+   59     | EXP . inf_egal EXP
+   60     | EXP . sup_egal EXP
+   61     | EXP . egal_egal EXP
+   62     | EXP . non_egal EXP
+
+    par_fer    shift, and go to state 131
+    plus       shift, and go to state 104
+    moins      shift, and go to state 105
+    slash      shift, and go to state 106
+    etoile     shift, and go to state 107
+    sup        shift, and go to state 112
+    inf        shift, and go to state 113
+    sup_egal   shift, and go to state 114
+    inf_egal   shift, and go to state 115
+    egal_egal  shift, and go to state 116
+    non_egal   shift, and go to state 117
+
+
+State 110
+
+   54 COND: COND . or COND
+   55     | COND . and COND
+   63     | par_ouv COND . par_fer
+
+    par_fer  shift, and go to state 138
+    and      shift, and go to state 119
+    or       shift, and go to state 120
+
+
+State 111
+
+   54 COND: COND . or COND
+   55     | COND . and COND
+   56     | not COND .
 
     $default  reduce using rule 56 (COND)
 
 
-State 137
+State 112
 
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   59 COND: EXP sup_egal EXP .
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   58 COND: EXP sup . EXP
 
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-    $default  reduce using rule 59 (COND)
-
-
-State 138
-
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   58 COND: EXP inf_egal EXP .
-
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
-
-    $default  reduce using rule 58 (COND)
+    EXP  go to state 139
 
 
-State 139
+State 113
 
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   60 COND: EXP egal_egal EXP .
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   57 COND: EXP inf . EXP
 
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-    $default  reduce using rule 60 (COND)
-
-
-State 140
-
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   61 COND: EXP non_egal EXP .
-
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
-
-    $default  reduce using rule 61 (COND)
+    EXP  go to state 140
 
 
-State 141
+State 114
 
-   53 COND: COND . or COND
-   54     | COND . and COND
-   54     | COND and COND .
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   60 COND: EXP sup_egal . EXP
 
-    $default  reduce using rule 54 (COND)
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-
-State 142
-
-   53 COND: COND . or COND
-   53     | COND or COND .
-   54     | COND . and COND
-
-    and  shift, and go to state 116
-
-    $default  reduce using rule 53 (COND)
-
-
-State 143
-
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-   52 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP . deux_points entier deux_points
-
-    deux_points  shift, and go to state 148
-    plus         shift, and go to state 101
-    moins        shift, and go to state 102
-    slash        shift, and go to state 103
-    etoile       shift, and go to state 104
+    EXP  go to state 141
 
 
-State 144
+State 115
 
-   30 INST_AFF: idf croch_ouv entier croch_fer aff . EXP pvg
-   31 EXP: . EXP plus EXP
-   32    | . EXP moins EXP
-   33    | . EXP slash EXP
-   34    | . EXP etoile EXP
-   35    | . moins EXP
-   36    | . plus EXP
-   37    | . idf
-   38    | . idf point idf
-   39    | . idf croch_ouv entier croch_fer
-   40    | . entier
-   41    | . reel
-   42    | . par_ouv EXP par_fer
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   59 COND: EXP inf_egal . EXP
 
-    par_ouv  shift, and go to state 73
-    plus     shift, and go to state 74
-    moins    shift, and go to state 75
-    idf      shift, and go to state 76
-    reel     shift, and go to state 77
-    entier   shift, and go to state 78
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
 
-    EXP  go to state 149
-
-
-State 145
-
-   29 INST_AFF: idf point idf aff EXP . pvg
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
-
-    pvg     shift, and go to state 150
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
+    EXP  go to state 142
 
 
-State 146
+State 116
 
-   43 INST_IF: AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer .
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   61 COND: EXP egal_egal . EXP
 
-    $default  reduce using rule 43 (INST_IF)
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 143
 
 
-State 147
+State 117
 
-   39 EXP: idf croch_ouv entier croch_fer .
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   62 COND: EXP non_egal . EXP
+
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 144
+
+
+State 118
+
+   47 AVANT_INST: mc_if par_ouv COND par_fer .
+
+    $default  reduce using rule 47 (AVANT_INST)
+
+
+State 119
+
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   54 COND: . COND or COND
+   55     | . COND and COND
+   55     | COND and . COND
+   56     | . not COND
+   57     | . EXP inf EXP
+   58     | . EXP sup EXP
+   59     | . EXP inf_egal EXP
+   60     | . EXP sup_egal EXP
+   61     | . EXP egal_egal EXP
+   62     | . EXP non_egal EXP
+   63     | . par_ouv COND par_fer
+
+    par_ouv  shift, and go to state 84
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    not      shift, and go to state 85
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP   go to state 86
+    COND  go to state 145
+
+
+State 120
+
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   54 COND: . COND or COND
+   54     | COND or . COND
+   55     | . COND and COND
+   56     | . not COND
+   57     | . EXP inf EXP
+   58     | . EXP sup EXP
+   59     | . EXP inf_egal EXP
+   60     | . EXP sup_egal EXP
+   61     | . EXP egal_egal EXP
+   62     | . EXP non_egal EXP
+   63     | . par_ouv COND par_fer
+
+    par_ouv  shift, and go to state 84
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    not      shift, and go to state 85
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP   go to state 86
+    COND  go to state 146
+
+
+State 121
+
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+   53 AVANT_COND_FOR: mc_for par_ouv idf deux_points . EXP deux_points entier deux_points
+
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 147
+
+
+State 122
+
+   31 A: idf croch_ouv EXP croch_fer .
+
+    $default  reduce using rule 31 (A)
+
+
+State 123
+
+   28 INST_AFF: idf aff EXP pvg .
+
+    $default  reduce using rule 28 (INST_AFF)
+
+
+State 124
+
+   29 INST_AFF: idf point idf aff . EXP pvg
+   32 EXP: . EXP plus EXP
+   33    | . EXP moins EXP
+   34    | . EXP slash EXP
+   35    | . EXP etoile EXP
+   36    | . moins EXP
+   37    | . plus EXP
+   38    | . idf
+   39    | . idf point idf
+   40    | . idf croch_ouv EXP croch_fer
+   41    | . entier
+   42    | . reel
+   43    | . par_ouv EXP par_fer
+
+    par_ouv  shift, and go to state 75
+    plus     shift, and go to state 76
+    moins    shift, and go to state 77
+    idf      shift, and go to state 78
+    reel     shift, and go to state 79
+    entier   shift, and go to state 80
+
+    EXP  go to state 148
+
+
+State 125
+
+   30 INST_AFF: A aff EXP pvg .
+
+    $default  reduce using rule 30 (INST_AFF)
+
+
+State 126
+
+   22 LISTE_INST: LISTE_INST . INST
+   24 INST: . INST_AFF
+   25     | . INST_IF
+   26     | . INST_WHILE
+   27     | . INST_FOR
+   28 INST_AFF: . idf aff EXP pvg
+   29         | . idf point idf aff EXP pvg
+   30         | . A aff EXP pvg
+   31 A: . idf croch_ouv EXP croch_fer
+   44 INST_IF: . AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer
+   44        | AVANT_ELSE mc_else acc_ouv LISTE_INST . acc_fer
+   45        | . AVANT_INST acc_ouv LISTE_INST acc_fer
+   46 AVANT_ELSE: . AVANT_INST acc_ouv LISTE_INST acc_fer
+   47 AVANT_INST: . mc_if par_ouv COND par_fer
+   48 INST_WHILE: . APRES_COND_WHILE acc_ouv LISTE_INST acc_fer
+   49 APRES_COND_WHILE: . AVANT_COND_WHILE par_ouv COND par_fer
+   50 AVANT_COND_WHILE: . mc_while
+   51 INST_FOR: . AVANT_INST_FOR acc_ouv LISTE_INST acc_fer
+   52 AVANT_INST_FOR: . AVANT_COND_FOR EXP par_fer
+   53 AVANT_COND_FOR: . mc_for par_ouv idf deux_points EXP deux_points entier deux_points
+
+    mc_if     shift, and go to state 41
+    mc_for    shift, and go to state 42
+    mc_while  shift, and go to state 43
+    acc_fer   shift, and go to state 149
+    idf       shift, and go to state 45
+
+    INST              go to state 46
+    INST_AFF          go to state 47
+    A                 go to state 48
+    INST_IF           go to state 49
+    AVANT_ELSE        go to state 50
+    AVANT_INST        go to state 51
+    INST_WHILE        go to state 52
+    APRES_COND_WHILE  go to state 53
+    AVANT_COND_WHILE  go to state 54
+    INST_FOR          go to state 55
+    AVANT_INST_FOR    go to state 56
+    AVANT_COND_FOR    go to state 57
+
+
+State 127
+
+   45 INST_IF: AVANT_INST acc_ouv LISTE_INST acc_fer .
+   46 AVANT_ELSE: AVANT_INST acc_ouv LISTE_INST acc_fer .
+
+    mc_else   reduce using rule 46 (AVANT_ELSE)
+    $default  reduce using rule 45 (INST_IF)
+
+
+State 128
+
+   48 INST_WHILE: APRES_COND_WHILE acc_ouv LISTE_INST acc_fer .
+
+    $default  reduce using rule 48 (INST_WHILE)
+
+
+State 129
+
+   49 APRES_COND_WHILE: AVANT_COND_WHILE par_ouv COND par_fer .
+
+    $default  reduce using rule 49 (APRES_COND_WHILE)
+
+
+State 130
+
+   51 INST_FOR: AVANT_INST_FOR acc_ouv LISTE_INST acc_fer .
+
+    $default  reduce using rule 51 (INST_FOR)
+
+
+State 131
+
+   43 EXP: par_ouv EXP par_fer .
+
+    $default  reduce using rule 43 (EXP)
+
+
+State 132
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   40    | idf croch_ouv EXP . croch_fer
+
+    croch_fer  shift, and go to state 150
+    plus       shift, and go to state 104
+    moins      shift, and go to state 105
+    slash      shift, and go to state 106
+    etoile     shift, and go to state 107
+
+
+State 133
+
+   39 EXP: idf point idf .
 
     $default  reduce using rule 39 (EXP)
 
 
+State 134
+
+   32 EXP: EXP . plus EXP
+   32    | EXP plus EXP .
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
+
+    $default  reduce using rule 32 (EXP)
+
+
+State 135
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   33    | EXP moins EXP .
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
+
+    $default  reduce using rule 33 (EXP)
+
+
+State 136
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   34    | EXP slash EXP .
+   35    | EXP . etoile EXP
+
+    $default  reduce using rule 34 (EXP)
+
+
+State 137
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   35    | EXP etoile EXP .
+
+    $default  reduce using rule 35 (EXP)
+
+
+State 138
+
+   63 COND: par_ouv COND par_fer .
+
+    $default  reduce using rule 63 (COND)
+
+
+State 139
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   58 COND: EXP sup EXP .
+
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
+
+    $default  reduce using rule 58 (COND)
+
+
+State 140
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   57 COND: EXP inf EXP .
+
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
+
+    $default  reduce using rule 57 (COND)
+
+
+State 141
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   60 COND: EXP sup_egal EXP .
+
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
+
+    $default  reduce using rule 60 (COND)
+
+
+State 142
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   59 COND: EXP inf_egal EXP .
+
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
+
+    $default  reduce using rule 59 (COND)
+
+
+State 143
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   61 COND: EXP egal_egal EXP .
+
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
+
+    $default  reduce using rule 61 (COND)
+
+
+State 144
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   62 COND: EXP non_egal EXP .
+
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
+
+    $default  reduce using rule 62 (COND)
+
+
+State 145
+
+   54 COND: COND . or COND
+   55     | COND . and COND
+   55     | COND and COND .
+
+    $default  reduce using rule 55 (COND)
+
+
+State 146
+
+   54 COND: COND . or COND
+   54     | COND or COND .
+   55     | COND . and COND
+
+    and  shift, and go to state 119
+
+    $default  reduce using rule 54 (COND)
+
+
+State 147
+
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
+   53 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP . deux_points entier deux_points
+
+    deux_points  shift, and go to state 151
+    plus         shift, and go to state 104
+    moins        shift, and go to state 105
+    slash        shift, and go to state 106
+    etoile       shift, and go to state 107
+
+
 State 148
 
-   52 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points . entier deux_points
+   29 INST_AFF: idf point idf aff EXP . pvg
+   32 EXP: EXP . plus EXP
+   33    | EXP . moins EXP
+   34    | EXP . slash EXP
+   35    | EXP . etoile EXP
 
-    entier  shift, and go to state 151
+    pvg     shift, and go to state 152
+    plus    shift, and go to state 104
+    moins   shift, and go to state 105
+    slash   shift, and go to state 106
+    etoile  shift, and go to state 107
 
 
 State 149
 
-   30 INST_AFF: idf croch_ouv entier croch_fer aff EXP . pvg
-   31 EXP: EXP . plus EXP
-   32    | EXP . moins EXP
-   33    | EXP . slash EXP
-   34    | EXP . etoile EXP
+   44 INST_IF: AVANT_ELSE mc_else acc_ouv LISTE_INST acc_fer .
 
-    pvg     shift, and go to state 152
-    plus    shift, and go to state 101
-    moins   shift, and go to state 102
-    slash   shift, and go to state 103
-    etoile  shift, and go to state 104
+    $default  reduce using rule 44 (INST_IF)
 
 
 State 150
+
+   40 EXP: idf croch_ouv EXP croch_fer .
+
+    $default  reduce using rule 40 (EXP)
+
+
+State 151
+
+   53 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points . entier deux_points
+
+    entier  shift, and go to state 153
+
+
+State 152
 
    29 INST_AFF: idf point idf aff EXP pvg .
 
     $default  reduce using rule 29 (INST_AFF)
 
 
-State 151
-
-   52 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points entier . deux_points
-
-    deux_points  shift, and go to state 153
-
-
-State 152
-
-   30 INST_AFF: idf croch_ouv entier croch_fer aff EXP pvg .
-
-    $default  reduce using rule 30 (INST_AFF)
-
-
 State 153
 
-   52 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points entier deux_points .
+   53 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points entier . deux_points
 
-    $default  reduce using rule 52 (AVANT_COND_FOR)
+    deux_points  shift, and go to state 154
+
+
+State 154
+
+   53 AVANT_COND_FOR: mc_for par_ouv idf deux_points EXP deux_points entier deux_points .
+
+    $default  reduce using rule 53 (AVANT_COND_FOR)

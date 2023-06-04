@@ -75,8 +75,13 @@ WHILE   {col += yyleng; return mc_while;}
 {idf}           {
                     col += yyleng; 
                     if (yyleng <= 8)
-                    {
-                        yylval.nom = strdup(yytext); 
+                    {   
+                        char s[yyleng];
+                        strcpy(s, "$");
+                        strcat(s, yytext);
+                        //chaque idf vas etre codé en '_idf': pour eviter d'avoir des nom réservés pour le 8086 comme ax, bx ,cx ....
+                        yylval.nom = strdup(s);
+
                         return(idf);
                     }
                     else {
